@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An accessible introduction to UFO abduction reports, common features, famous cases and alternative explanations.">
+  <meta name="color-scheme" content="dark">
+  <title>UFO Abductions | Reports, Cases and Explanations</title>
+  <style>
+    :root {
+      --ink: #f2f5f6;
+      --muted: #bdc9cf;
+      --night: #071016;
+      --header: #09151c;
+      --panel: #101d25;
+      --panel-light: #172731;
+      --line: #38505d;
+      --signal: #e0c278;
+      --paper: #f4f1e8;
+      --paper-ink: #202d34;
+      --paper-accent: #6b5726;
+      --content-width: 70rem;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--night);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible {
+      border-radius: 0.15rem;
+      outline: 0.2rem solid var(--signal);
+      outline-offset: 0.25rem;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 100;
+      padding: 0.75rem 1rem;
+      transform: translateY(-200%);
+      background: var(--signal);
+      color: var(--night);
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 160ms ease;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .masthead {
+      background: color-mix(in srgb, var(--header) 94%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-wrap {
+      display: flex;
+      width: min(var(--content-width), 92%);
+      min-height: 4.75rem;
+      margin-inline: auto;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .brand {
+      padding-block: 0.6rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      gap: 0.25rem 1rem;
+      list-style: none;
+    }
+
+    nav a {
+      display: inline-flex;
+      min-height: 2.75rem;
+      padding: 0.65rem 0.5rem;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      text-underline-offset: 0.35rem;
+      text-transform: uppercase;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--signal);
+      text-decoration-color: currentColor;
+    }
+
+    main:focus { outline: none; }
+
+    .hero {
+      position: relative;
+      display: grid;
+      min-height: 36rem;
+      overflow: hidden;
+      align-items: end;
+      border-bottom: 1px solid var(--line);
+      background: #0b151b;
+      isolation: isolate;
+    }
+
+    .hero img {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(100%) contrast(115%) brightness(48%);
+    }
+
+    .hero::after {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(4, 11, 15, 0.96) 0%, rgba(4, 11, 15, 0.68) 55%, rgba(4, 11, 15, 0.28) 100%);
+      content: "";
+    }
+
+    .hero-content {
+      width: min(var(--content-width), 92%);
+      margin-inline: auto;
+      padding: 7rem 0 5rem;
+    }
+
+    .eyebrow,
+    .section-label,
+    .case-number,
+    .case-meta {
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      margin: 0 0 1rem;
+      color: var(--signal);
+      font-size: 0.875rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    h1 {
+      max-width: 50rem;
+      margin: 0;
+      font-size: clamp(3.5rem, 9vw, 7rem);
+      font-weight: 400;
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+    }
+
+    .lede {
+      max-width: 39rem;
+      margin: 1.75rem 0 0;
+      color: #d8e0e4;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+    }
+
+    .hero-credit {
+      position: absolute;
+      right: 4%;
+      bottom: 1.25rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .hero-credit a,
+    footer a { text-underline-offset: 0.2rem; }
+
+    .hero-credit a:hover,
+    .hero-credit a:focus-visible,
+    footer a:hover,
+    footer a:focus-visible { color: #fff; }
+
+    .content-shell {
+      width: min(var(--content-width), 92%);
+      margin-inline: auto;
+    }
+
+    .section {
+      display: grid;
+      padding: 5.75rem 0;
+      grid-template-columns: 12rem minmax(0, 1fr);
+      gap: 4rem;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 1.25rem;
+    }
+
+    .section-label {
+      color: var(--signal);
+      font-size: 0.8rem;
+    }
+
+    h2 {
+      max-width: 48rem;
+      margin: 0 0 1.75rem;
+      font-size: clamp(2.1rem, 4vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+    }
+
+    .copy {
+      max-width: 49rem;
+      color: #d0dade;
+    }
+
+    .copy p:first-child { margin-top: 0; }
+    .copy p:last-child { margin-bottom: 0; }
+    .copy strong { color: #fff; }
+
+    .back-top {
+      display: inline-flex;
+      min-height: 2.75rem;
+      margin-top: 1.75rem;
+      padding: 0.6rem 0.4rem;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--signal);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-underline-offset: 0.25rem;
+      text-transform: uppercase;
+    }
+
+    .back-top::before {
+      content: "↑";
+      font-size: 1.05rem;
+    }
+
+    .back-top:hover,
+    .back-top:focus-visible { color: #fff; }
+
+    .quiz-link { display: inline-block; margin-top: 1.5rem; padding: 0.8rem 1.2rem; background: var(--signal); color: var(--night); font-weight: 700; text-decoration: none; }
+    .quiz-link:hover, .quiz-link:focus-visible { background: #fff; }
+
+    .feature-grid {
+      display: grid;
+      overflow: hidden;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .feature-grid article {
+      min-height: 9.75rem;
+      padding: 1.75rem;
+      background: var(--panel);
+    }
+
+    .feature-grid h3 {
+      margin: 0 0 0.4rem;
+      color: var(--ink);
+      font-size: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .feature-grid p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .cases-section { display: block; }
+
+    .cases-heading { margin-bottom: 2rem; }
+    .cases-heading h2 { margin-bottom: 0; }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+    }
+
+    .case-card {
+      min-height: 26rem;
+      padding: 2rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+
+    .case-card:nth-child(2) {
+      background: var(--paper);
+      color: var(--paper-ink);
+    }
+
+    .case-number {
+      display: block;
+      margin-bottom: 3.25rem;
+      color: var(--signal);
+      font-size: 0.8rem;
+    }
+
+    .case-card:nth-child(2) .case-number,
+    .case-card:nth-child(2) .case-meta { color: var(--paper-accent); }
+
+    .case-card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.7rem;
+      line-height: 1.15;
+    }
+
+    .case-meta {
+      margin: 0 0 1.5rem;
+      color: var(--signal);
+      font-size: 0.8rem;
+    }
+
+    .case-card p:last-child { margin-bottom: 0; }
+
+    .balance {
+      padding: 2.25rem;
+      border-left: 0.3rem solid var(--signal);
+      background: var(--panel-light);
+    }
+
+    footer {
+      padding: 2.5rem 4%;
+      background: #050a0d;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer p { margin: 0.4rem 0; }
+
+    footer a {
+      display: inline-flex;
+      min-height: 2.75rem;
+      padding: 0.5rem;
+      align-items: center;
+      color: var(--ink);
+    }
+
+    @media (max-width: 52rem) {
+      .nav-wrap {
+        padding: 1rem 0;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+
+      nav ul { flex-wrap: wrap; }
+      .hero { min-height: 32rem; }
+
+      .section {
+        padding: 4.25rem 0;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .case-grid { grid-template-columns: 1fr; }
+      .case-card { min-height: auto; }
+      .case-number { margin-bottom: 1.75rem; }
+    }
+
+    @media (max-width: 35rem) {
+      nav { width: 100%; }
+      nav ul { display: grid; grid-template-columns: 1fr 1fr; }
+      nav a { width: 100%; }
+      h1 { font-size: clamp(3rem, 17vw, 4.5rem); }
+      .hero-content { padding-bottom: 6.5rem; }
+      .hero-credit { right: 4%; left: 4%; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .feature-grid article { min-height: auto; }
+      .case-card, .balance { padding: 1.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .skip-link { transition: none; }
+    }
+
+    @media (forced-colors: active) {
+      .hero img { opacity: 0.25; }
+      .hero::after { display: none; }
+      .case-card, .feature-grid article, .balance { border: 1px solid CanvasText; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to main content</a>
+
+  <header class="masthead" id="top">
+    <div class="nav-wrap">
+      <a class="brand" href="#top">UFO Abductions</a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#features">Reports</a></li>
+          <li><a href="#cases">Cases</a></li>
+          <li><a href="#skepticism">Explanations</a></li>
+          <li><a href="alien-encounter-quiz.html">Encounter quiz</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" tabindex="-1">
+    <section class="hero" aria-labelledby="page-title">
+      <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Flying%20Saucer%20-%20NARA%20NAID%20303938034%20cropped.png" alt="Historic monochrome photograph of a disc-shaped object described as a flying saucer">
+      <div class="hero-content">
+        <p class="eyebrow">Claims · Encounters · Explanations</p>
+        <h1 id="page-title">UFO<br>Abductions</h1>
+        <p class="lede">Strange lights. Missing time. Unexplained encounters—and the alternative explanations behind one of modern culture's most enduring mysteries.</p>
+      </div>
+      <small class="hero-credit">U.S. National Archives · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Flying_Saucer_-_NARA_NAID_303938034_cropped.png">Image details</a></small>
+    </section>
+
+    <div class="content-shell">
+      <section class="section" id="overview" aria-labelledby="overview-title">
+        <div class="section-label" aria-hidden="true">01 / Overview</div>
+        <div>
+          <h2 id="overview-title">What are UFO abductions?</h2>
+          <div class="copy">
+            <p>UFO abductions, also called alien abductions, refer to claims that people have been taken against their will by non-human beings, usually associated with unidentified flying objects. Reports often describe being lifted into a craft, examined and then returned with little or no memory of the event.</p>
+            <p>These stories have been told for decades and form a major part of modern UFO lore, although <strong>mainstream science has not confirmed any of them</strong>.</p>
+          </div>
+          <a class="back-top" href="#top">Back to top</a>
+        </div>
+      </section>
+
+      <section class="section" id="features" aria-labelledby="features-title">
+        <div class="section-label" aria-hidden="true">02 / Reports</div>
+        <div>
+          <h2 id="features-title">Common features reported</h2>
+          <div class="feature-grid">
+            <article><h3>Missing time</h3><p>Hours that cannot be accounted for.</p></article>
+            <article><h3>Unusual lights</h3><p>Bright lights or unusual craft in the sky.</p></article>
+            <article><h3>Physical sensation</h3><p>Feelings of paralysis or being watched.</p></article>
+            <article><h3>Examinations</h3><p>Medical-style examinations by small beings.</p></article>
+            <article><h3>Physical traces</h3><p>Strange marks, scars or reported implants afterward.</p></article>
+            <article><h3>Recovered memories</h3><p>Vivid dreams or memories recalled under hypnosis.</p></article>
+          </div>
+          <a class="back-top" href="#top">Back to top</a>
+        </div>
+      </section>
+
+      <section class="section cases-section" id="cases" aria-labelledby="cases-title">
+        <div class="cases-heading">
+          <div class="section-label" aria-hidden="true">03 / Case files</div>
+          <h2 id="cases-title">Famous cases</h2>
+        </div>
+        <div class="case-grid">
+          <article class="case-card">
+            <span class="case-number" aria-hidden="true">Case 001</span>
+            <h3>Betty &amp; Barney Hill</h3>
+            <p class="case-meta">1961 · New Hampshire</p>
+            <p>One of the earliest and best-known abduction reports. The couple claimed they were stopped on a New Hampshire highway, taken aboard a craft and examined. Their story helped popularise many of the classic abduction details still told today.</p>
+          </article>
+          <article class="case-card">
+            <span class="case-number" aria-hidden="true">Case 002</span>
+            <h3>Travis Walton</h3>
+            <p class="case-meta">1975 · Arizona</p>
+            <p>An Arizona logger who said he was struck by a beam of light and taken for several days. His coworkers reported seeing the craft. The case later inspired the film <cite>Fire in the Sky</cite>.</p>
+          </article>
+          <article class="case-card">
+            <span class="case-number" aria-hidden="true">Case 003</span>
+            <h3>Allagash Abductions</h3>
+            <p class="case-meta">1976 · Maine</p>
+            <p>Four friends on a canoe trip in Maine claimed they were taken from their campsite. All four later described similar experiences under hypnosis.</p>
+          </article>
+        </div>
+        <a class="back-top" href="#top">Back to top</a>
+      </section>
+
+      <section class="section" id="skepticism" aria-labelledby="skepticism-title">
+        <div class="section-label" aria-hidden="true">04 / Perspective</div>
+        <div>
+          <h2 id="skepticism-title">Scepticism and alternative views</h2>
+          <div class="copy balance">
+            <p>Many researchers point to <strong>sleep paralysis, false memories, cultural influence and the power of suggestion</strong>—especially under hypnosis—as more likely explanations. No physical evidence accepted by the scientific community has confirmed that abductions by extraterrestrials have occurred.</p>
+            <p>Still, the stories continue to fascinate people and remain a major theme in books, documentaries and popular culture.</p>
+          </div>
+          <a class="back-top" href="#top">Back to top</a>
+        </div>
+      </section>
+
+      <section class="section" id="quiz" aria-labelledby="quiz-title">
+        <div class="section-label" aria-hidden="true">05 / Interactive</div>
+        <div>
+          <h2 id="quiz-title">What would you do during an encounter?</h2>
+          <div class="copy">
+            <p>Take five short decisions in a fictional alien encounter. See whether your choices lean toward careful investigation, staying grounded or exploring the unknown.</p>
+            <p>The quiz offers an optional name, age and country field. Your details and answers stay in your browser tab.</p>
+          </div>
+          <p><a class="quiz-link" href="alien-encounter-quiz.html">Start the encounter quiz →</a></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>A concise introduction to UFO abduction reports.</p>
+    <p><a href="#top">Return to top</a></p>
+  </footer>
+</body>
+</html>
