@@ -1,0 +1,1887 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="An interactive field guide to alien abduction reports, famous cases and grounded explanations."
+    />
+    <meta name="theme-color" content="#09151b" />
+    <title>The Missing Hours | Interactive Encounter Field Guide</title>
+    <style>
+      :root {
+        --bg: #09151b;
+        --surface: #10242d;
+        --surface2: #16313a;
+        --ink: #f4f2e9;
+        --muted: #bdd0d0;
+        --line: #42606a;
+        --accent: #d8ee9c;
+        --gold: #f0cb94;
+        --max: 1160px;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          1rem/1.65 system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        pointer-events: none;
+        opacity: 0.11;
+        background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)" opacity=".22"/%3E%3C/svg%3E');
+      }
+      a {
+        color: inherit;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(var(--max), calc(100% - 2.5rem));
+        margin-inline: auto;
+      }
+      .skip {
+        position: absolute;
+        left: 1rem;
+        top: -5rem;
+        background: var(--accent);
+        color: #08171a;
+        padding: 0.6rem 1rem;
+        z-index: 50;
+      }
+      .skip:focus {
+        top: 1rem;
+      }
+      .progress {
+        height: 4px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0;
+        background: var(--accent);
+        z-index: 30;
+      }
+      .mast {
+        background: #09171ef2;
+        border-bottom: 1px solid var(--line);
+        position: relative;
+        z-index: 10;
+      }
+      .nav {
+        min-height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .brand {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: 900;
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        line-height: 1.25;
+      }
+      .brand small {
+        display: block;
+        color: var(--accent);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.17em;
+        margin-top: 0.2rem;
+      }
+      .menu {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.7rem, 2vw, 1.5rem);
+      }
+      .menu a {
+        color: var(--muted);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+      }
+      .menu a:hover,
+      .menu a[aria-current="location"] {
+        color: var(--accent);
+      }
+      .menu a[aria-current="location"] {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 0.45em;
+      }
+      .menu .nav-quiz {
+        border: 1px solid var(--accent);
+        padding: 0.58rem 0.85rem;
+        color: var(--accent);
+      }
+      .menu-toggle {
+        display: none;
+        color: var(--ink);
+        background: transparent;
+        border: 1px solid var(--line);
+        padding: 0.5rem 0.8rem;
+      }
+      .hero {
+        position: relative;
+        min-height: min(770px, 88vh);
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        background: #173038;
+      }
+      .hero img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(1) sepia(0.2) brightness(0.54);
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, #09151bf5 5%, #09151bc4 47%, #09151b3a 100%),
+          linear-gradient(0deg, #09151b, transparent 32%);
+      }
+      .hero .wrap {
+        position: relative;
+        padding: 6rem 0;
+        z-index: 1;
+      }
+      .eyebrow,
+      .kicker {
+        font-weight: 850;
+        font-size: 0.73rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: Georgia, serif;
+        font-weight: 400;
+      }
+      h1 {
+        font-size: clamp(3.5rem, 9vw, 8rem);
+        line-height: 0.96;
+        letter-spacing: -0.055em;
+        max-width: 12ch;
+        margin: 1.25rem 0;
+      }
+      h2 {
+        font-size: clamp(2.2rem, 5vw, 4.4rem);
+        line-height: 1.1;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+      h3 {
+        font-size: 1.55rem;
+        line-height: 1.25;
+      }
+      .hero p {
+        max-width: 630px;
+        color: #e0e8e5;
+        font-size: clamp(1.1rem, 2vw, 1.35rem);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 2rem;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 48px;
+        padding: 0.8rem 1.3rem;
+        border: 1px solid var(--accent);
+        background: var(--accent);
+        color: #0c1e1b;
+        text-decoration: none;
+        font-weight: 850;
+      }
+      .button:hover {
+        background: #ecffbd;
+      }
+      .button.secondary {
+        background: #09151b80;
+        color: var(--ink);
+        border-color: #9db3b5;
+      }
+      .button.secondary:hover {
+        background: var(--surface2);
+      }
+      .credit {
+        position: absolute;
+        bottom: 1rem;
+        right: 2rem;
+        z-index: 2;
+        color: #e0e4df;
+        font-size: 0.7rem;
+      }
+      .strip {
+        background: #10212a;
+        border-block: 1px solid var(--line);
+      }
+      .strip .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1.1rem 0;
+      }
+      .strip span {
+        color: var(--muted);
+        font-size: 0.68rem;
+        font-weight: 750;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+      .section {
+        padding: clamp(4rem, 8vw, 7rem) 0;
+        border-bottom: 1px solid var(--line);
+        scroll-margin-top: 2rem;
+      }
+      .heading {
+        display: grid;
+        grid-template-columns: 180px minmax(0, 1fr);
+        gap: 2rem;
+        margin-bottom: 2.2rem;
+      }
+      .intro {
+        max-width: 780px;
+        font-size: 1.1rem;
+        color: var(--muted);
+      }
+      .note {
+        border-left: 3px solid var(--accent);
+        padding: 1rem 1.3rem;
+        background: var(--surface);
+        max-width: 780px;
+        color: var(--muted);
+      }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1px;
+        border: 1px solid var(--line);
+        background: var(--line);
+      }
+      .feature {
+        background: var(--surface);
+        padding: 1.8rem;
+        min-height: 205px;
+      }
+      .feature b,
+      .case .id {
+        color: var(--accent);
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+      }
+      .feature h3 {
+        margin: 1.2rem 0 0.4rem;
+      }
+      .feature p,
+      .case p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .explorer {
+        background:
+          radial-gradient(circle at 90% 0, #1c3e43, transparent 45%), var(--bg);
+      }
+      .explorer-grid {
+        display: grid;
+        grid-template-columns: minmax(200px, 310px) minmax(0, 1fr);
+        gap: 1rem;
+      }
+      .topic-list {
+        display: grid;
+        gap: 0.6rem;
+        align-content: start;
+      }
+      .topic-list button {
+        padding: 1rem 1.2rem;
+        text-align: left;
+        background: var(--surface);
+        color: var(--ink);
+        border: 1px solid var(--line);
+        font-weight: 750;
+      }
+      .topic-list button[aria-pressed="true"] {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #0b1b1b;
+      }
+      .topic-panel {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        padding: clamp(1.4rem, 4vw, 2.5rem);
+        min-height: 260px;
+      }
+      .topic-panel h3 {
+        margin: 0.7rem 0;
+      }
+      .topic-panel p {
+        color: var(--muted);
+        max-width: 65ch;
+      }
+      .topic-panel .disclaimer {
+        color: var(--gold);
+        font-size: 0.85rem;
+      }
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: end;
+        gap: 1rem;
+        margin: 0 0 1rem;
+      }
+      .field {
+        display: grid;
+        gap: 0.35rem;
+        flex: 1 1 220px;
+      }
+      .field label {
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        min-height: 48px;
+        padding: 0.6rem 0.8rem;
+        background: #152b34;
+        color: var(--ink);
+        border: 1px solid #68818a;
+        border-radius: 0;
+      }
+      .result-count {
+        color: var(--muted);
+        margin: 0 0 1rem;
+      }
+      .cases {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .case {
+        border: 1px solid var(--line);
+        background: var(--surface);
+        padding: 1.8rem;
+        display: flex;
+        flex-direction: column;
+        min-height: 320px;
+      }
+      .case h3 {
+        margin: 1.3rem 0 0.5rem;
+      }
+      .case button {
+        border: 0;
+        background: none;
+        color: var(--accent);
+        padding: 0.7rem 0;
+        margin-top: auto;
+        align-self: start;
+        text-decoration: underline;
+        text-underline-offset: 0.3em;
+        font-weight: 800;
+      }
+      .case[hidden],
+      #noResults[hidden] {
+        display: none;
+      }
+      .empty {
+        border: 1px dashed var(--line);
+        padding: 1.5rem;
+        color: var(--muted);
+      }
+      .explain {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+      .explain details {
+        background: var(--surface);
+        padding: 1.2rem 1.5rem;
+        border: 1px solid var(--line);
+      }
+      .explain summary {
+        cursor: pointer;
+        font-size: 1.08rem;
+        font-weight: 750;
+      }
+      .explain summary::marker {
+        color: var(--accent);
+      }
+      .explain p {
+        color: var(--muted);
+        margin-bottom: 0;
+      }
+      .quiz-box {
+        background: linear-gradient(110deg, #1d4046, #102631 65%);
+        padding: clamp(2rem, 5vw, 4rem);
+        border: 1px solid var(--line);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2rem;
+        align-items: end;
+      }
+      .quiz-box p {
+        max-width: 650px;
+        color: var(--muted);
+      }
+      footer {
+        padding: 2.8rem 0;
+        color: var(--muted);
+      }
+      footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      dialog {
+        width: min(620px, calc(100% - 2rem));
+        max-height: calc(100% - 2rem);
+        overflow: auto;
+        background: var(--surface);
+        color: var(--ink);
+        border: 1px solid var(--accent);
+        padding: 2rem;
+        box-shadow: 0 2rem 6rem #000a;
+      }
+      dialog::backdrop {
+        background: #02080ddd;
+      }
+      dialog h2 {
+        font-size: 2.2rem;
+        margin: 0.7rem 0;
+      }
+      dialog p {
+        color: var(--muted);
+      }
+      .close {
+        float: right;
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        padding: 0.3rem 0.7rem;
+      }
+      @media (max-width: 860px) {
+        .heading {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+        }
+        .features,
+        .cases {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .js .menu-toggle {
+          display: block;
+        }
+        .js .menu {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          padding: 1rem 1.25rem;
+          background: #0b1b23;
+          border-bottom: 1px solid var(--line);
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .js .menu.open {
+          display: flex;
+        }
+        .menu a {
+          padding: 0.45rem 0;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+        }
+        .menu .nav-quiz {
+          align-self: start;
+          padding: 0.6rem 0.85rem;
+        }
+      }
+      @media (max-width: 620px) {
+        .hero {
+          min-height: 670px;
+        }
+        .hero img {
+          object-position: 65%;
+        }
+        .hero::after {
+          background:
+            linear-gradient(90deg, #09151bf2, #09151b9a),
+            linear-gradient(0deg, #09151b, transparent 45%);
+        }
+        .hero h1 {
+          font-size: clamp(3.3rem, 15vw, 5rem);
+        }
+        .features,
+        .cases,
+        .explain,
+        .explorer-grid,
+        .quiz-box {
+          grid-template-columns: 1fr;
+        }
+        .feature,
+        .case {
+          min-height: unset;
+        }
+        .credit {
+          display: none;
+        }
+        .strip .wrap {
+          justify-content: start;
+        }
+        .topic-panel {
+          min-height: unset;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      /* Compact reading layout: reduce the distance between useful sections. */
+      .mast {
+        position: sticky;
+        top: 4px;
+      }
+      .hero {
+        min-height: clamp(420px, 62vh, 560px);
+      }
+      .hero .wrap {
+        padding: 4rem 0;
+      }
+      .hero h1 {
+        font-size: clamp(3.3rem, 7vw, 6.1rem);
+        max-width: 15ch;
+      }
+      .section {
+        padding: clamp(2.5rem, 5vw, 4rem) 0;
+        scroll-margin-top: 6rem;
+      }
+      .heading {
+        margin-bottom: 1.3rem;
+      }
+      .section h2 {
+        font-size: clamp(2rem, 4vw, 3.35rem);
+      }
+      .features {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .feature {
+        min-height: 150px;
+        padding: 1.25rem;
+      }
+      .feature h3 {
+        margin: 0.55rem 0 0.25rem;
+        font-size: 1.35rem;
+      }
+      .case {
+        min-height: 245px;
+        padding: 1.35rem;
+      }
+      .case h3 {
+        margin: 0.8rem 0 0.35rem;
+      }
+      .topic-panel {
+        min-height: 205px;
+      }
+      .strip .wrap {
+        padding: 0.65rem 0;
+      }
+      .quiz-box {
+        padding: clamp(1.6rem, 4vw, 2.8rem);
+      }
+      @media (max-width: 860px) {
+        .features {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 620px) {
+        .hero {
+          min-height: 480px;
+        }
+        .hero .wrap {
+          padding: 3rem 0;
+        }
+        .hero h1 {
+          font-size: clamp(2.9rem, 12vw, 4.3rem);
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+        .actions {
+          margin-top: 1.2rem;
+        }
+        .section {
+          padding: 2.4rem 0;
+        }
+        .features {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .feature {
+          min-height: 0;
+          padding: 1rem;
+        }
+        .feature h3 {
+          font-size: 1.18rem;
+        }
+        .feature p {
+          font-size: 0.9rem;
+        }
+        .case {
+          min-height: 0;
+        }
+        .strip {
+          display: none;
+        }
+        .topic-list {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .topic-list button {
+          padding: 0.7rem;
+        }
+        .quiz-box {
+          gap: 0.8rem;
+        }
+      }
+      @media (max-width: 380px) {
+        .features {
+          grid-template-columns: 1fr;
+        }
+        .topic-list {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <header class="mast" id="top">
+      <div class="wrap nav">
+        <a class="brand" href="index.html"
+          >The Missing Hours<small>An encounter field guide</small></a
+        ><button
+          class="menu-toggle"
+          id="menuToggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="menu"
+          aria-label="Open navigation menu"
+        >
+          Menu ☰
+        </button>
+        <nav class="menu" id="menu" aria-label="Main navigation">
+          <a href="#overview">Overview</a
+          ><a href="#reports">Reported features</a
+          ><a href="#explorer">Explore reports</a><a href="#cases">Case files</a
+          ><a href="alien-craft.html">Craft archive</a
+          ><a href="#explanations">Explanations</a
+          ><a class="nav-quiz" href="alien-encounter-quiz.html"
+            >Encounter quiz ↗</a
+          >
+        </nav>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <section class="hero" aria-labelledby="heroTitle">
+        <img
+          src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Flying%20Saucer%20-%20NARA%20NAID%20303938034%20cropped.png"
+          alt="Archival monochrome photograph of a disc-shaped object in the sky"
+        />
+        <div class="wrap">
+          <span class="eyebrow">Field archive / phenomenon 01</span>
+          <h1 id="heroTitle">Between memory and mystery.</h1>
+          <p>
+            Strange lights. Missing time. Extraordinary accounts. Investigate
+            the reports, explore famous cases and weigh possible explanations.
+          </p>
+          <div class="actions">
+            <a class="button" href="#overview">Explore the field guide ↓</a
+            ><a class="button secondary" href="alien-craft.html"
+              >Explore alien craft ↗</a
+            ><a class="button secondary" href="alien-encounter-quiz.html"
+              >Take the encounter quiz ↗</a
+            >
+          </div>
+        </div>
+        <small class="credit"
+          >U.S. National Archives ·
+          <a
+            href="https://commons.wikimedia.org/wiki/File:Flying_Saucer_-_NARA_NAID_303938034_cropped.png"
+            >Image details</a
+          ></small
+        >
+      </section>
+      <div class="strip">
+        <div class="wrap">
+          <span>01 / The phenomenon</span><span>02 / Reported features</span
+          ><span>03 / Case archive</span><span>04 / Craft archive</span
+          ><span>05 / Alternative explanations</span>
+        </div>
+      </div>
+      <section class="section wrap" id="overview">
+        <div class="heading">
+          <span class="kicker">01 / Overview</span>
+          <h2>Extraordinary claims. Human experiences.</h2>
+        </div>
+        <p class="intro">
+          Alien abduction accounts describe people believing they were taken by
+          non-human beings, often following unexplained lights or a period of
+          missing time. The experiences can feel real and unsettling. Their
+          interpretation remains contested, and no account alone establishes an
+          extraterrestrial cause.
+        </p>
+        <p class="note">
+          This guide describes reported experiences and possible explanations.
+          It does not treat the cases as confirmed extraterrestrial events.
+        </p>
+      </section>
+      <section class="section wrap" id="reports">
+        <div class="heading">
+          <span class="kicker">02 / Reports</span>
+          <h2>Details that recur across accounts.</h2>
+        </div>
+        <div class="features">
+          <article class="feature">
+            <b>01 / TIME</b>
+            <h3>Missing time</h3>
+            <p>Minutes or hours a witness cannot account for.</p>
+          </article>
+          <article class="feature">
+            <b>02 / LIGHT</b>
+            <h3>Unusual lights</h3>
+            <p>Bright lights or unfamiliar objects reported in the sky.</p>
+          </article>
+          <article class="feature">
+            <b>03 / SENSATION</b>
+            <h3>Paralysis</h3>
+            <p>
+              Feeling awake yet unable to move, sometimes with a sensed
+              presence.
+            </p>
+          </article>
+          <article class="feature">
+            <b>04 / MEMORY</b>
+            <h3>Fragmented recall</h3>
+            <p>
+              Incomplete recollections or vivid dreams interpreted after an
+              event.
+            </p>
+          </article>
+          <article class="feature">
+            <b>05 / EXAMINATION</b>
+            <h3>Medical imagery</h3>
+            <p>Accounts involving observation or medical-style procedures.</p>
+          </article>
+          <article class="feature">
+            <b>06 / TRACES</b>
+            <h3>Physical impressions</h3>
+            <p>
+              Marks or sensations later associated with the reported experience.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="section explorer" id="explorer">
+        <div class="wrap">
+          <div class="heading">
+            <span class="kicker">03 / Interactive explorer</span>
+            <h2>Explore a reported feature.</h2>
+          </div>
+          <p class="intro">
+            Choose a feature to see how it appears in accounts and one possible
+            explanation. More than one explanation may apply to an experience.
+          </p>
+          <div class="explorer-grid">
+            <div class="topic-list" role="group" aria-label="Reported features">
+              <button type="button" data-topic="time" aria-pressed="true">
+                Missing time ↗</button
+              ><button
+                type="button"
+                data-topic="paralysis"
+                aria-pressed="false"
+              >
+                Paralysis ↗</button
+              ><button type="button" data-topic="lights" aria-pressed="false">
+                Unusual lights ↗</button
+              ><button type="button" data-topic="memories" aria-pressed="false">
+                Recovered memories ↗
+              </button>
+            </div>
+            <div class="topic-panel" id="topicPanel" aria-live="polite">
+              <span class="kicker">Report / 01</span>
+              <h3>Missing time</h3>
+              <p>
+                Some accounts describe a gap between a remembered sighting and
+                the next clear memory.
+              </p>
+              <p>
+                <strong>One possible explanation:</strong> Memory is
+                reconstructive. Stress, fatigue and later retelling can affect
+                how a period of time is recalled.
+              </p>
+              <p class="disclaimer">
+                A possible explanation is not a diagnosis of any individual
+                report.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap" id="cases">
+        <div class="heading">
+          <span class="kicker">04 / Case archive</span>
+          <h2>Stories that shaped the narrative.</h2>
+        </div>
+        <p class="intro">
+          Search 40 reported cases from around the world or filter by decade.
+          Select a case for a short note. These accounts are claims, not
+          confirmed extraterrestrial events.
+        </p>
+        <div class="tools">
+          <div class="field">
+            <label for="caseSearch">Search case files</label
+            ><input
+              id="caseSearch"
+              type="search"
+              placeholder="Name, place or keyword"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field">
+            <label for="decadeFilter">Decade</label
+            ><select id="decadeFilter">
+              <option value="all">All decades</option>
+              <option value="1950">1950s</option>
+              <option value="1960">1960s</option>
+              <option value="1970">1970s</option>
+              <option value="1980">1980s</option>
+              <option value="1990">1990s</option>
+              <option value="2000">2000s</option>
+              <option value="2010">2010s</option>
+            </select>
+          </div>
+        </div>
+        <p
+          class="result-count"
+          id="resultCount"
+          role="status"
+          aria-live="polite"
+        >
+          Showing 6 of 40 cases
+        </p>
+        <div class="cases" id="caseGrid">
+          <article
+            class="case"
+            data-decade="1960"
+            data-search="betty barney hill 1961 new hampshire missing time hypnosis"
+          >
+            <span class="id">CASE 001 · 1961 · NEW HAMPSHIRE</span>
+            <h3>Betty &amp; Barney Hill</h3>
+            <p>
+              A couple's reported sighting and later memories helped establish
+              familiar abduction themes.
+            </p>
+            <button type="button" data-case="hill">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="travis walton 1975 arizona forestry logging disappeared"
+          >
+            <span class="id">CASE 002 · 1975 · ARIZONA</span>
+            <h3>Travis Walton</h3>
+            <p>
+              A forestry worker disappeared for several days and later described
+              being aboard a craft.
+            </p>
+            <button type="button" data-case="walton">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="allagash four 1976 maine canoe light hypnosis"
+          >
+            <span class="id">CASE 003 · 1976 · MAINE</span>
+            <h3>The Allagash Four</h3>
+            <p>
+              Four friends reported an unusual light during a canoe trip;
+              hypnosis later became part of the account.
+            </p>
+            <button type="button" data-case="allagash">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1950"
+            data-search="antonio vilas boas 1957 brazil farmer field encounter"
+          >
+            <span class="id">CASE 004 · 1957 · BRAZIL</span>
+            <h3>Antônio Vilas-Boas</h3>
+            <p>
+              A Brazilian farmer reported being taken aboard a craft while
+              working in a field. His story became an early, widely discussed
+              abduction account.
+            </p>
+            <button type="button" data-case="vilas">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="pascagoula charles hickson calvin parker 1973 mississippi fishing river"
+          >
+            <span class="id">CASE 005 · 1973 · MISSISSIPPI</span>
+            <h3>Pascagoula incident</h3>
+            <p>
+              Charles Hickson and Calvin Parker said they encountered unfamiliar
+              beings while fishing near the Pascagoula River.
+            </p>
+            <button type="button" data-case="pascagoula">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1980"
+            data-search="whitley strieber 1985 new york communion visitors author"
+          >
+            <span class="id">CASE 006 · 1985 · NEW YORK</span>
+            <h3>Whitley Strieber</h3>
+            <p>
+              The writer described a disturbing experience at his cabin, later
+              recounted in his 1987 book <em>Communion</em>.
+            </p>
+            <button type="button" data-case="strieber">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1960"
+            data-search="buff ledge 1968 vermont michael buffum janet cornell camp lake hypnosis"
+          >
+            <span class="id">CASE 007 · 1968 · VERMONT</span>
+            <h3>Buff Ledge</h3>
+            <p>
+              Two camp employees later reported missing time and an encounter
+              near Lake Champlain.
+            </p>
+            <button type="button" data-case="buffledge">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="aveley 1974 essex england john susan day family road hypnosis"
+          >
+            <span class="id">CASE 008 · 1974 · ESSEX</span>
+            <h3>Aveley encounter</h3>
+            <p>
+              A family journey through Essex became associated with missing time
+              and later hypnotic recollections.
+            </p>
+            <button type="button" data-case="aveley">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="stanford kentucky 1976 women family car ufo abduction"
+          >
+            <span class="id">CASE 009 · 1976 · KENTUCKY</span>
+            <h3>Stanford incident</h3>
+            <p>
+              Three women reported a bright object following their car and later
+              described missing time.
+            </p>
+            <button type="button" data-case="stanford">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="emilcin jan wolski 1978 poland farmer craft examination"
+          >
+            <span class="id">CASE 010 · 1978 · POLAND</span>
+            <h3>Emilcin incident</h3>
+            <p>
+              Farmer Jan Wolski reported entering a craft and undergoing an
+              examination near Emilcin.
+            </p>
+            <button type="button" data-case="emilcin">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="zanfretta pier fortunato 1978 italy torriglia security guard"
+          >
+            <span class="id">CASE 011 · 1978 · ITALY</span>
+            <h3>Zanfretta incident</h3>
+            <p>
+              Security guard Pier Fortunato Zanfretta reported a close encounter
+              during a night patrol.
+            </p>
+            <button type="button" data-case="zanfretta">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="cergy pontoise 1979 france franck fontaine disappearance hoax disputed"
+          >
+            <span class="id">CASE 012 · 1979 · FRANCE</span>
+            <h3>Cergy-Pontoise</h3>
+            <p>
+              Franck Fontaine disappeared after a reported light sighting; the
+              case later became heavily disputed.
+            </p>
+            <button type="button" data-case="cergy">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1980"
+            data-search="alan godfrey 1980 todmorden west yorkshire police officer"
+          >
+            <span class="id">CASE 013 · 1980 · YORKSHIRE</span>
+            <h3>Alan Godfrey</h3>
+            <p>
+              A police officer reported a strange object while on patrol and
+              later associated the event with missing time.
+            </p>
+            <button type="button" data-case="godfrey">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1980"
+            data-search="ilkley moor philip spencer 1987 yorkshire photograph missing time"
+          >
+            <span class="id">CASE 014 · 1987 · YORKSHIRE</span>
+            <h3>Ilkley Moor</h3>
+            <p>
+              A witness using the name Philip Spencer reported an encounter and
+              produced an ambiguous photograph.
+            </p>
+            <button type="button" data-case="ilkley">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1980"
+            data-search="linda cortile napolitano 1989 manhattan new york brooklyn bridge"
+          >
+            <span class="id">CASE 015 · 1989 · NEW YORK</span>
+            <h3>Linda Cortile</h3>
+            <p>
+              Linda Cortile claimed she was taken from a Manhattan apartment in
+              a controversial account publicised years later.
+            </p>
+            <button type="button" data-case="cortile">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="a70 incident garry wood colin wright 1992 scotland edinburgh tarbrax"
+          >
+            <span class="id">CASE 016 · 1992 · SCOTLAND</span>
+            <h3>The A70 incident</h3>
+            <p>
+              Two men reported missing time during a drive outside Edinburgh and
+              later described an encounter.
+            </p>
+            <button type="button" data-case="a70">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="peter khoury 1992 sydney australia hair claim encounter"
+          >
+            <span class="id">CASE 017 · 1992 · AUSTRALIA</span>
+            <h3>Peter Khoury</h3>
+            <p>
+              Khoury reported an encounter in Sydney and later presented hair
+              strands he associated with it.
+            </p>
+            <button type="button" data-case="khoury">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="meng zhaoguo 1994 china heilongjiang phoenix mountain forestry"
+          >
+            <span class="id">CASE 018 · 1994 · CHINA</span>
+            <h3>Meng Zhaoguo</h3>
+            <p>
+              A forestry worker reported unusual lights and subsequent
+              encounters in Heilongjiang.
+            </p>
+            <button type="button" data-case="meng">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="kirsan ilyumzhinov 1997 moscow russia kalmykia politician chess"
+          >
+            <span class="id">CASE 019 · 1997 · RUSSIA</span>
+            <h3>Kirsan Ilyumzhinov</h3>
+            <p>
+              The former Kalmyk leader said beings took him from a Moscow
+              apartment aboard a craft.
+            </p>
+            <button type="button" data-case="kirsan">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="2000"
+            data-search="gundiah mackay 2001 australia amy rylance queensland caravan"
+          >
+            <span class="id">CASE 020 · 2001 · AUSTRALIA</span>
+            <h3>Gundiah-Mackay</h3>
+            <p>
+              A Queensland case centred on Amy Rylance’s reported disappearance
+              from a caravan and later return.
+            </p>
+            <button type="button" data-case="gundiah">Read case note →</button>
+          </article>
+          <article
+            class="case"
+            data-decade="1960"
+            data-search="betty andreasson luca 1967 massachusetts family hypnosis"
+            data-note="Betty Andreasson Luca described a 1967 encounter at her Massachusetts home. Much of the detailed narrative emerged years later under hypnosis, so the account remains dependent on disputed memory-recovery methods."
+          >
+            <span class="id">CASE 021 · 1967 · MASSACHUSETTS</span>
+            <h3>Andreasson affair</h3>
+            <p>
+              A family-home encounter later became a detailed narrative through
+              hypnosis.
+            </p>
+            <button type="button" data-case-title="Andreasson affair">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1960"
+            data-search="herbert schirmer 1967 ashland nebraska police officer road hypnosis"
+            data-note="Police officer Herbert Schirmer reported seeing an unusual object on a Nebraska road in 1967. An abduction narrative later emerged under hypnosis; no independently verified evidence established its cause."
+          >
+            <span class="id">CASE 022 · 1967 · NEBRASKA</span>
+            <h3>Herbert Schirmer</h3>
+            <p>
+              A police officer’s roadside sighting was followed by missing-time
+              claims.
+            </p>
+            <button type="button" data-case-title="Herbert Schirmer">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="carl higdon 1974 medicine bow wyoming hunter elk"
+            data-note="Hunter Carl Higdon reported a strange encounter in Wyoming's Medicine Bow National Forest in 1974. He later described being transported elsewhere, but the claim remains unverified."
+          >
+            <span class="id">CASE 023 · 1974 · WYOMING</span>
+            <h3>Carl Higdon</h3>
+            <p>
+              A hunter reported an unusual figure, missing time and a journey
+              aboard a craft.
+            </p>
+            <button type="button" data-case-title="Carl Higdon">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="charles moody 1975 alamogordo new mexico desert missing time"
+            data-note="Charles Moody reported a glowing object near Alamogordo in 1975 and later noticed a memory gap. More elaborate encounter details were subsequently recalled, leaving the case reliant on personal testimony."
+          >
+            <span class="id">CASE 024 · 1975 · NEW MEXICO</span>
+            <h3>Charles Moody</h3>
+            <p>
+              A desert sighting was followed by missing time and later encounter
+              memories.
+            </p>
+            <button type="button" data-case-title="Charles Moody">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="robert taylor 1979 dechmont woods livingston scotland forestry"
+            data-note="Forestry worker Robert Taylor reported being pulled toward an unusual object in Dechmont Woods in 1979. Police documented torn clothing and ground marks, while alternative explanations have included a medical episode."
+          >
+            <span class="id">CASE 025 · 1979 · SCOTLAND</span>
+            <h3>Robert Taylor incident</h3>
+            <p>
+              A forestry worker reported an assault by unusual objects in
+              woodland.
+            </p>
+            <button type="button" data-case-title="Robert Taylor incident">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1970"
+            data-search="val johnson 1979 minnesota sheriff deputy patrol car light"
+            data-note="Deputy Val Johnson reported that a bright light struck his patrol car in Minnesota in 1979. The damaged vehicle became central to the investigation, although the event is a close-encounter case rather than a conventional abduction report."
+          >
+            <span class="id">CASE 026 · 1979 · MINNESOTA</span>
+            <h3>Val Johnson incident</h3>
+            <p>
+              A deputy reported a collision-like encounter with a bright light
+              while on patrol.
+            </p>
+            <button type="button" data-case-title="Val Johnson incident">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1980"
+            data-search="cash landrum 1980 texas betty vickie colby heat helicopters"
+            data-note="Betty Cash, Vickie Landrum and Colby Landrum reported intense heat from a bright object on a Texas road in 1980. They later attributed health problems to the event, but investigations did not establish the object's identity."
+          >
+            <span class="id">CASE 027 · 1980 · TEXAS</span>
+            <h3>Cash–Landrum incident</h3>
+            <p>
+              Three witnesses reported intense heat from a bright object
+              accompanied by helicopters.
+            </p>
+            <button type="button" data-case-title="Cash–Landrum incident">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1980"
+            data-search="rendlesham forest 1980 suffolk england bentwaters woodbridge military"
+            data-note="US military personnel near RAF Woodbridge reported unusual lights in Rendlesham Forest in 1980. Contemporary documents and audio exist, but witness accounts and interpretations differ."
+          >
+            <span class="id">CASE 028 · 1980 · SUFFOLK</span>
+            <h3>Rendlesham Forest</h3>
+            <p>
+              Military personnel reported unusual lights and an object near two
+              airbases.
+            </p>
+            <button type="button" data-case-title="Rendlesham Forest">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1980"
+            data-search="debby jordan 1983 california intruders budd hopkins"
+            data-note="Debby Jordan's reported experiences became a prominent part of 1980s abduction literature. The account was developed with investigator Budd Hopkins and remains based on personal recollection and hypnosis."
+          >
+            <span class="id">CASE 029 · 1983 · CALIFORNIA</span>
+            <h3>Debby Jordan</h3>
+            <p>
+              Repeated experiences became widely known through abduction
+              research and books.
+            </p>
+            <button type="button" data-case-title="Debby Jordan">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1980"
+            data-search="hudson valley 1983 new york lights boomerang mass sightings"
+            data-note="Residents of New York's Hudson Valley reported large formations of lights throughout the 1980s. Some sightings were attributed to pilots flying in formation, while other witnesses disputed that explanation."
+          >
+            <span class="id">CASE 030 · 1983 · NEW YORK</span>
+            <h3>Hudson Valley wave</h3>
+            <p>
+              Large formations of lights generated numerous reports over several
+              years.
+            </p>
+            <button type="button" data-case-title="Hudson Valley wave">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="kelly cahill 1993 belgrave victoria australia family beings"
+            data-note="Kelly Cahill reported a 1993 encounter near Belgrave, Victoria, involving unusual lights and figures. Claims of other witnesses have made the story prominent, but publicly verifiable evidence remains limited."
+          >
+            <span class="id">CASE 031 · 1993 · AUSTRALIA</span>
+            <h3>Kelly Cahill</h3>
+            <p>
+              A family journey became associated with lights, figures and
+              reported physical effects.
+            </p>
+            <button type="button" data-case-title="Kelly Cahill">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="ariel school ruwa 1994 zimbabwe children students beings craft"
+            data-note="Dozens of pupils at Ariel School in Ruwa reported seeing an object and figures nearby in 1994. Interviews recorded similar themes, while differences in details and possible group influence remain important considerations."
+          >
+            <span class="id">CASE 032 · 1994 · ZIMBABWE</span>
+            <h3>Ariel School</h3>
+            <p>
+              Schoolchildren reported seeing an object and figures beyond their
+              playground.
+            </p>
+            <button type="button" data-case-title="Ariel School">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="yukon 1996 canada giant ufo witnesses fox lake"
+            data-note="Witnesses across the Yukon reported a very large illuminated object in December 1996. The event is a multi-witness sighting rather than an abduction claim, and its interpretation remains disputed."
+          >
+            <span class="id">CASE 033 · 1996 · YUKON</span>
+            <h3>Yukon encounter</h3>
+            <p>
+              Multiple witnesses reported an enormous illuminated object
+              crossing the night sky.
+            </p>
+            <button type="button" data-case-title="Yukon encounter">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="varginha 1996 brazil creature military hospital witnesses"
+            data-note="Witnesses in Varginha reported unusual creatures and military activity in 1996. Brazilian authorities offered ordinary explanations for parts of the story, while supporters continue to dispute them."
+          >
+            <span class="id">CASE 034 · 1996 · BRAZIL</span>
+            <h3>Varginha incident</h3>
+            <p>
+              Reports of unusual creatures and military activity became a major
+              Brazilian case.
+            </p>
+            <button type="button" data-case-title="Varginha incident">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="1990"
+            data-search="phoenix lights 1997 arizona mass sighting flares formation"
+            data-note="Many Arizona residents reported lights crossing the sky in 1997. Later lights captured on video have commonly been linked to military flares, while witnesses continue to debate an earlier formation."
+          >
+            <span class="id">CASE 035 · 1997 · ARIZONA</span>
+            <h3>Phoenix Lights</h3>
+            <p>
+              A large formation of lights was reported across Arizona by
+              numerous witnesses.
+            </p>
+            <button type="button" data-case-title="Phoenix Lights">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="2000"
+            data-search="kumburgaz 2007 turkey sea marmara video yalcin yalman"
+            data-note="Yalçın Yalman recorded distant lights over the Sea of Marmara across several years. The footage prompted claims of a craft, but distance, image quality and possible maritime objects complicate interpretation."
+          >
+            <span class="id">CASE 036 · 2007 · TURKEY</span>
+            <h3>Kumburgaz videos</h3>
+            <p>
+              Long-range night footage over the Sea of Marmara prompted
+              competing interpretations.
+            </p>
+            <button type="button" data-case-title="Kumburgaz videos">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="2000"
+            data-search="stephenville 2008 texas radar pilots witnesses lights"
+            data-note="Residents and pilots near Stephenville reported unusual lights in January 2008. Radar analysis and witness testimony prompted debate, while military training activity was also reported in the region."
+          >
+            <span class="id">CASE 037 · 2008 · TEXAS</span>
+            <h3>Stephenville sightings</h3>
+            <p>
+              Witness reports and radar data generated debate over unusual
+              lights in Texas.
+            </p>
+            <button type="button" data-case-title="Stephenville sightings">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="2000"
+            data-search="jersey airport 2007 channel islands pilot ray bowyer"
+            data-note="Pilot Ray Bowyer and others reported bright objects near the Channel Islands in 2007. The observations were investigated, but estimates of distance and size varied substantially."
+          >
+            <span class="id">CASE 038 · 2007 · CHANNEL ISLANDS</span>
+            <h3>Channel Islands sighting</h3>
+            <p>
+              A pilot and passengers reported bright objects during a flight
+              near Alderney.
+            </p>
+            <button type="button" data-case-title="Channel Islands sighting">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="2010"
+            data-search="aguadilla 2013 puerto rico infrared airport object water"
+            data-note="Infrared footage recorded near Aguadilla airport in 2013 showed an unidentified object moving through the scene. Analysts disagree about its size, speed and nature; it is a recorded UAP case, not an abduction report."
+          >
+            <span class="id">CASE 039 · 2013 · PUERTO RICO</span>
+            <h3>Aguadilla UAP</h3>
+            <p>
+              Infrared footage near an airport showed an object whose motion
+              remains debated.
+            </p>
+            <button type="button" data-case-title="Aguadilla UAP">
+              Read case note →
+            </button>
+          </article>
+          <article
+            class="case"
+            data-decade="2010"
+            data-search="navy nimitz tic tac 2004 2017 video pilots fravor california"
+            data-note="The 2004 USS Nimitz encounters became widely known after official videos and pilot accounts emerged publicly in 2017. The observations remain classified as unexplained in public discussion, but they do not constitute an abduction case."
+          >
+            <span class="id">CASE 040 · 2004/2017 · PACIFIC</span>
+            <h3>Nimitz “Tic Tac”</h3>
+            <p>
+              Navy personnel reported unusual objects during training exercises
+              in the Pacific.
+            </p>
+            <button type="button" data-case-title="Nimitz “Tic Tac”">
+              Read case note →
+            </button>
+          </article>
+        </div>
+        <p class="empty" id="noResults" hidden>
+          No cases match. Try another term or select all decades.
+        </p>
+        <p>
+          <button class="button secondary" id="showMoreCases" type="button">
+            Show more cases
+          </button>
+        </p>
+      </section>
+      <section class="section" id="explanations">
+        <div class="wrap">
+          <div class="heading">
+            <span class="kicker">05 / Perspective</span>
+            <h2>Other ways to understand the experience.</h2>
+          </div>
+          <p class="intro">
+            These topics can help evaluate an account without dismissing the
+            person who reports it.
+          </p>
+          <div class="explain">
+            <details>
+              <summary>Sleep paralysis</summary>
+              <p>
+                Temporary inability to move while waking or falling asleep may
+                occur with vivid imagery and a sensed presence.
+              </p>
+            </details>
+            <details>
+              <summary>Memory reconstruction</summary>
+              <p>
+                Memory is not a perfect recording. Expectation, later
+                information and retelling can influence recall.
+              </p>
+            </details>
+            <details>
+              <summary>Cultural influence</summary>
+              <p>
+                Familiar images from films, television and folklore may shape
+                the interpretation of an ambiguous event.
+              </p>
+            </details>
+            <details>
+              <summary>Suggestion under hypnosis</summary>
+              <p>
+                Hypnosis can increase confidence in a memory without
+                establishing its accuracy. Leading questions may influence the
+                account.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap" id="quiz">
+        <div class="quiz-box">
+          <div>
+            <span class="kicker">06 / Interactive field exercise</span>
+            <h2>What would you do?</h2>
+            <p>
+              Make five decisions in a fictional encounter. See whether your
+              choices lean toward investigation, grounding or exploration.
+              Optional profile details and answers stay in your browser tab.
+            </p>
+          </div>
+          <a class="button" href="alien-encounter-quiz.html"
+            >Start the quiz ↗</a
+          >
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="wrap">
+        <span>© 2026 The Missing Hours · For education and curiosity.</span
+        ><a href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+    <dialog id="caseDialog" aria-labelledby="dialogTitle">
+      <button
+        class="close"
+        id="dialogClose"
+        type="button"
+        aria-label="Close case note"
+      >
+        ✕</button
+      ><span class="kicker">Archive / case note</span>
+      <h2 id="dialogTitle"></h2>
+      <p id="dialogText"></p>
+      <p>
+        <small
+          >These are reported accounts, not proof of extraterrestrial
+          contact.</small
+        >
+      </p>
+    </dialog>
+    <script>
+      "use strict";
+      document.documentElement.classList.add("js");
+      const toggle = document.querySelector("#menuToggle");
+      const menu = document.querySelector("#menu");
+      const sectionLinks = [...menu.querySelectorAll('a[href^="#"]')];
+      function setMenu(open) {
+        menu.classList.toggle("open", open);
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute(
+          "aria-label",
+          open ? "Close navigation menu" : "Open navigation menu",
+        );
+        toggle.textContent = open ? "Close ✕" : "Menu ☰";
+      }
+      toggle.addEventListener("click", () =>
+        setMenu(toggle.getAttribute("aria-expanded") !== "true"),
+      );
+      menu
+        .querySelectorAll("a")
+        .forEach((link) =>
+          link.addEventListener("click", () => setMenu(false)),
+        );
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          toggle.getAttribute("aria-expanded") === "true"
+        ) {
+          setMenu(false);
+          toggle.focus();
+        }
+      });
+      document.addEventListener("pointerdown", (event) => {
+        if (
+          toggle.getAttribute("aria-expanded") === "true" &&
+          !event.target.closest(".nav")
+        )
+          setMenu(false);
+      });
+      const desktop = matchMedia("(min-width: 861px)");
+      desktop.addEventListener("change", (event) => {
+        if (event.matches) setMenu(false);
+      });
+      if ("IntersectionObserver" in window) {
+        const observed = sectionLinks
+          .map((link) => document.querySelector(link.getAttribute("href")))
+          .filter(Boolean);
+        const observer = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (!visible) return;
+            sectionLinks.forEach((link) => {
+              if (link.getAttribute("href") === "#" + visible.target.id)
+                link.setAttribute("aria-current", "location");
+              else link.removeAttribute("aria-current");
+            });
+          },
+          { rootMargin: "-18% 0px -60% 0px", threshold: [0, 0.1, 0.25, 0.5] },
+        );
+        observed.forEach((section) => observer.observe(section));
+      }
+
+      const topics = {
+        time: {
+          number: "01",
+          title: "Missing time",
+          report:
+            "Some accounts describe a gap between a remembered sighting and the next clear memory.",
+          explanation:
+            "Memory is reconstructive. Stress, fatigue and later retelling can affect how a period of time is recalled.",
+        },
+        paralysis: {
+          number: "02",
+          title: "Paralysis",
+          report:
+            "A person may describe being conscious but unable to move, sometimes while sensing another presence.",
+          explanation:
+            "Sleep paralysis can occur when waking or falling asleep, sometimes alongside vivid perceptions.",
+        },
+        lights: {
+          number: "03",
+          title: "Unusual lights",
+          report:
+            "Reports may begin with a bright light or an unfamiliar object overhead.",
+          explanation:
+            "Distance, weather, aircraft and viewing conditions can make a light difficult to identify from a brief observation.",
+        },
+        memories: {
+          number: "04",
+          title: "Recovered memories",
+          report:
+            "Some case narratives developed years later through hypnosis or repeated recollection.",
+          explanation:
+            "Suggestion and later information can influence recall. Confidence in a memory does not establish its accuracy.",
+        },
+      };
+      const panel = document.querySelector("#topicPanel");
+      document.querySelectorAll("[data-topic]").forEach((button) =>
+        button.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-topic]")
+            .forEach((item) =>
+              item.setAttribute("aria-pressed", String(item === button)),
+            );
+          const topic = topics[button.dataset.topic];
+          panel.replaceChildren();
+          const label = document.createElement("span");
+          label.className = "kicker";
+          label.textContent = "Report / " + topic.number;
+          const heading = document.createElement("h3");
+          heading.textContent = topic.title;
+          const report = document.createElement("p");
+          report.textContent = topic.report;
+          const explanation = document.createElement("p");
+          const strong = document.createElement("strong");
+          strong.textContent = "One possible explanation: ";
+          explanation.append(strong, topic.explanation);
+          const caution = document.createElement("p");
+          caution.className = "disclaimer";
+          caution.textContent =
+            "A possible explanation is not a diagnosis of any individual report.";
+          panel.append(label, heading, report, explanation, caution);
+        }),
+      );
+      const search = document.querySelector("#caseSearch"),
+        decade = document.querySelector("#decadeFilter"),
+        cards = [...document.querySelectorAll(".case")],
+        count = document.querySelector("#resultCount"),
+        empty = document.querySelector("#noResults"),
+        showMore = document.querySelector("#showMoreCases");
+      let caseLimit = 6;
+      function filterCases(reset = false) {
+        if (reset) caseLimit = 6;
+        const words = search.value
+          .trim()
+          .toLocaleLowerCase()
+          .split(/\s+/)
+          .filter(Boolean);
+        const matches = cards.filter(
+          (card) =>
+            (decade.value === "all" || card.dataset.decade === decade.value) &&
+            words.every((word) => card.dataset.search.includes(word)),
+        );
+        cards.forEach((card) => (card.hidden = true));
+        matches.slice(0, caseLimit).forEach((card) => (card.hidden = false));
+        const shown = Math.min(caseLimit, matches.length);
+        count.textContent = `Showing ${shown} of ${matches.length} matching cases`;
+        empty.hidden = matches.length !== 0;
+        showMore.hidden = shown >= matches.length;
+      }
+      search.addEventListener("input", () => filterCases(true));
+      decade.addEventListener("change", () => filterCases(true));
+      showMore.addEventListener("click", () => {
+        caseLimit += 6;
+        filterCases();
+      });
+      filterCases();
+      const notes = {
+        hill: {
+          title: "Betty & Barney Hill",
+          text: "After a 1961 drive through New Hampshire, the couple reported seeing an unusual object and experiencing missing time. Much of the later abduction narrative emerged during hypnosis. The case became highly influential, while the interpretation of the memories remains disputed.",
+        },
+        walton: {
+          title: "Travis Walton",
+          text: "In 1975, Walton disappeared while working with a logging crew in Arizona. He returned several days later and reported an encounter aboard a craft. His account and coworkers’ testimony remain debated.",
+        },
+        allagash: {
+          title: "The Allagash Four",
+          text: "Four friends reported an unusual light during a 1976 canoe trip in Maine. Years later they described similar abduction memories during hypnosis. The time between the event and those sessions is relevant when evaluating the claim.",
+        },
+        vilas: {
+          title: "Antônio Vilas-Boas",
+          text: "Vilas-Boas reported that he was taken aboard a craft while working on a farm in Brazil in 1957. His account became one of the earliest widely circulated abduction stories. The event has not been independently verified.",
+        },
+        pascagoula: {
+          title: "Pascagoula incident",
+          text: "In 1973, Charles Hickson and Calvin Parker reported a frightening encounter while fishing near Pascagoula, Mississippi. They later told police they had been taken aboard an unfamiliar object. Their interpretation of the event remains unverified.",
+        },
+        strieber: {
+          title: "Whitley Strieber",
+          text: "Strieber described an experience at his New York cabin in 1985 and published his account in Communion in 1987. He called the beings “visitors” and did not establish that they were extraterrestrial. The account influenced later public discussion of abductions.",
+        },
+        buffledge: {
+          title: "Buff Ledge",
+          text: "In 1968, two employees at a Vermont summer camp later described missing time and an encounter near Lake Champlain. Important details emerged under hypnosis, so the account remains unverified and dependent on later recollection.",
+        },
+        aveley: {
+          title: "Aveley encounter",
+          text: "A family travelling through Essex in 1974 reported an unusual light and a gap in their journey. A detailed abduction narrative was later developed through hypnosis, a method that can alter or construct memories.",
+        },
+        stanford: {
+          title: "Stanford incident",
+          text: "Three women driving near Stanford, Kentucky, in 1976 reported a bright object, physical effects and missing time. Later recollections expanded the story, but no accepted physical evidence confirmed an abduction.",
+        },
+        emilcin: {
+          title: "Emilcin incident",
+          text: "In 1978, Polish farmer Jan Wolski reported meeting unusual beings and entering a craft near Emilcin. A local memorial marks the report, but the extraordinary interpretation has not been independently established.",
+        },
+        zanfretta: {
+          title: "Zanfretta incident",
+          text: "Italian security guard Pier Fortunato Zanfretta reported an encounter during a 1978 night patrol near Torriglia. Police records document that a report was made; they do not verify an extraterrestrial explanation.",
+        },
+        cergy: {
+          title: "Cergy-Pontoise",
+          text: "Franck Fontaine disappeared briefly after a reported sighting near Cergy-Pontoise in 1979. The case drew major attention, but a later reported hoax admission made its reliability especially doubtful.",
+        },
+        godfrey: {
+          title: "Alan Godfrey",
+          text: "While on patrol in Todmorden in 1980, police officer Alan Godfrey reported a bright object and a period he could not explain. More elaborate material emerged under hypnosis and remains disputed.",
+        },
+        ilkley: {
+          title: "Ilkley Moor",
+          text: "In 1987, a witness using the pseudonym Philip Spencer reported seeing a figure on Ilkley Moor and took a blurry photograph. Claims of missing time and abduction followed; the image does not establish what occurred.",
+        },
+        cortile: {
+          title: "Linda Cortile",
+          text: "Linda Cortile said she was taken from her Manhattan apartment in 1989. The story was later promoted as having independent witnesses, but identities, documentation and contradictions have made the case highly controversial.",
+        },
+        a70: {
+          title: "The A70 incident",
+          text: "Garry Wood and Colin Wright reported missing time while driving on the A70 near Edinburgh in 1992. An abduction narrative later emerged under hypnosis, leaving the case reliant on memory-recovery methods.",
+        },
+        khoury: {
+          title: "Peter Khoury",
+          text: "Peter Khoury reported a 1992 encounter in Sydney and retained hair strands he believed were connected to it. Testing identified human mitochondrial DNA; it did not demonstrate extraterrestrial origin.",
+        },
+        meng: {
+          title: "Meng Zhaoguo",
+          text: "Forestry worker Meng Zhaoguo reported unusual events in Heilongjiang in 1994. The claim became one of China’s best-known abduction stories, although publicly verifiable evidence remains limited.",
+        },
+        kirsan: {
+          title: "Kirsan Ilyumzhinov",
+          text: "Kirsan Ilyumzhinov, then a prominent Kalmyk politician, said beings took him from his Moscow apartment in 1997. His public account attracted attention but supplied no independently verified evidence.",
+        },
+        gundiah: {
+          title: "Gundiah-Mackay",
+          text: "In 2001, witnesses in Queensland said Amy Rylance disappeared from a caravan after a beam of light and later reappeared elsewhere. The account has not been independently confirmed.",
+        },
+      };
+      const dialog = document.querySelector("#caseDialog");
+      let opener = null;
+      document.querySelectorAll(".case button").forEach((button) =>
+        button.addEventListener("click", () => {
+          opener = button;
+          const note = notes[button.dataset.case];
+          document.querySelector("#dialogTitle").textContent =
+            note?.title || button.dataset.caseTitle;
+          document.querySelector("#dialogText").textContent =
+            note?.text || button.closest(".case").dataset.note;
+          dialog.showModal();
+        }),
+      );
+      document
+        .querySelector("#dialogClose")
+        .addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener("close", () => opener?.focus());
+      const progress = document.querySelector("#progress");
+      let pending = false;
+      function updateProgress() {
+        const span = document.documentElement.scrollHeight - innerHeight;
+        progress.style.width = `${span > 0 ? Math.min(100, (scrollY / span) * 100) : 100}%`;
+        pending = false;
+      }
+      addEventListener(
+        "scroll",
+        () => {
+          if (!pending) {
+            pending = true;
+            requestAnimationFrame(updateProgress);
+          }
+        },
+        { passive: true },
+      );
+      addEventListener("resize", updateProgress);
+      updateProgress();
+    </script>
+  </body>
+</html>

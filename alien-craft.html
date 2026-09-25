@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="A fictional interactive archive of alien abduction craft, reported characteristics and speculative statistics."
+    />
+    <meta name="theme-color" content="#08151b" />
+    <title>Craft Archive | The Missing Hours</title>
+    <style>
+      :root {
+        --bg: #08151b;
+        --panel: #102730;
+        --panel2: #163641;
+        --ink: #f4f2e9;
+        --muted: #b9cdcf;
+        --line: #3d5f68;
+        --signal: #d8ee9c;
+        --gold: #efc688;
+        --max: 1180px;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 80% 0, #17343c 0, transparent 32rem),
+          var(--bg);
+        color: var(--ink);
+        font:
+          1rem/1.55 system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
+      }
+      a {
+        color: inherit;
+      }
+      button,
+      select,
+      input {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      a:focus-visible,
+      button:focus-visible,
+      select:focus-visible,
+      input:focus-visible {
+        outline: 3px solid var(--signal);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(var(--max), calc(100% - 2rem));
+        margin: auto;
+      }
+      .skip {
+        position: fixed;
+        top: -5rem;
+        left: 1rem;
+        z-index: 20;
+        background: var(--signal);
+        color: #07171a;
+        padding: 0.7rem 1rem;
+      }
+      .skip:focus {
+        top: 1rem;
+      }
+      .mast {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #08151bf2;
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(12px);
+      }
+      .nav {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .brand {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        font-size: 0.78rem;
+      }
+      .brand small {
+        display: block;
+        color: var(--signal);
+        font-size: 0.63rem;
+        font-weight: 600;
+        margin-top: 0.2rem;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+      }
+      .nav-links a {
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+      .nav-links a:hover {
+        color: var(--signal);
+      }
+      .nav-links .active {
+        color: var(--signal);
+        border-bottom: 2px solid var(--signal);
+      }
+      .hero {
+        padding: clamp(3rem, 8vw, 6rem) 0 3rem;
+        border-bottom: 1px solid var(--line);
+      }
+      .eyebrow,
+      .label {
+        color: var(--signal);
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        font-weight: 850;
+        letter-spacing: 0.17em;
+      }
+      .hero h1 {
+        font:
+          400 clamp(3.3rem, 9vw, 7rem) / 0.94 Georgia,
+          serif;
+        letter-spacing: -0.05em;
+        margin: 1rem 0;
+        max-width: 12ch;
+      }
+      .hero p {
+        max-width: 720px;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+      }
+      .notice {
+        max-width: 840px;
+        border-left: 4px solid var(--gold);
+        background: #192c31;
+        padding: 1rem 1.2rem;
+        color: #e9d5b8;
+      }
+      .controls {
+        padding: 1.4rem 0;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr auto;
+        gap: 1rem;
+        align-items: end;
+        border-bottom: 1px solid var(--line);
+      }
+      .field {
+        display: grid;
+        gap: 0.35rem;
+      }
+      .field label {
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .field input,
+      .field select {
+        min-height: 46px;
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        background: #122b34;
+        color: var(--ink);
+        border: 1px solid #64808a;
+      }
+      .field input[aria-invalid="true"] {
+        border-color: #ff9d88;
+        box-shadow: 0 0 0 1px #ff9d88;
+      }
+      .field-error {
+        min-height: 1.25rem;
+        margin: 0;
+        color: #ffb19f;
+        font-size: 0.82rem;
+      }
+      .button {
+        min-height: 46px;
+        padding: 0.65rem 1rem;
+        border: 1px solid var(--signal);
+        background: var(--signal);
+        color: #09201d;
+        font-weight: 850;
+      }
+      .button.secondary {
+        background: transparent;
+        color: var(--ink);
+        border-color: #789097;
+      }
+      .summary {
+        padding: 1.2rem 0;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        padding-bottom: 4rem;
+      }
+      .craft {
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(150deg, var(--panel2), var(--panel));
+        border: 1px solid var(--line);
+        min-height: 475px;
+        overflow: hidden;
+      }
+      .craft[hidden] {
+        display: none;
+      }
+      .visual {
+        height: 175px;
+        display: grid;
+        place-items: center;
+        position: relative;
+        background:
+          radial-gradient(circle at 50% 65%, #335d63, transparent 45%), #09191f;
+        border-bottom: 1px solid var(--line);
+      }
+      .visual::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.4;
+        background-image: radial-gradient(#b9dbb9 1px, transparent 1px);
+        background-size: 23px 23px;
+      }
+      .visual svg {
+        position: relative;
+        width: 82%;
+        height: 125px;
+        filter: drop-shadow(0 12px 12px #000a);
+      }
+      .body {
+        padding: 1.35rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .craft h2 {
+        font:
+          400 1.65rem/1.2 Georgia,
+          serif;
+        margin: 0.65rem 0 0.35rem;
+      }
+      .description {
+        margin: 0 0 1rem;
+        color: var(--muted);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        margin: auto 0 1rem;
+      }
+      .stat {
+        background: #0c2027;
+        padding: 0.7rem;
+      }
+      .stat span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+      .stat strong {
+        display: block;
+        font-size: 1.05rem;
+        margin-top: 0.15rem;
+      }
+      .detail {
+        width: 100%;
+        text-align: left;
+      }
+      .empty {
+        padding: 2rem;
+        border: 1px dashed var(--line);
+        color: var(--muted);
+        margin-bottom: 4rem;
+      }
+      .empty[hidden] {
+        display: none;
+      }
+      dialog {
+        position: relative;
+        isolation: isolate;
+        width: min(650px, calc(100% - 2rem));
+        max-height: calc(100% - 2rem);
+        overflow: auto;
+        padding: 0;
+        background: var(--panel);
+        color: var(--ink);
+        border: 1px solid var(--signal);
+        box-shadow: 0 2rem 7rem #000c;
+      }
+      .dialog-craft-background {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 35%, #426871, #07151b 72%);
+      }
+      .dialog-craft-background::after {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(#07151b99, #07151bf2 72%);
+        content: "";
+      }
+      .dialog-craft-background svg {
+        width: 90%;
+        min-width: 420px;
+        opacity: 0.42;
+        filter: drop-shadow(0 1.5rem 1.5rem #000);
+        transform: translateY(-18%);
+      }
+      .dialog-head,
+      .dialog-body {
+        position: relative;
+        z-index: 1;
+      }
+      dialog::backdrop {
+        background: #02090ddd;
+      }
+      .dialog-head {
+        padding: 1.3rem 1.5rem;
+        border-bottom: 1px solid var(--line);
+      }
+      .dialog-head h2 {
+        font:
+          400 2.2rem Georgia,
+          serif;
+        margin: 0.4rem 0;
+      }
+      .dialog-body {
+        padding: 1.5rem;
+      }
+      .dialog-body p {
+        color: var(--muted);
+      }
+      .close {
+        float: right;
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        min-width: 44px;
+        min-height: 44px;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 2.5rem 0;
+        color: var(--muted);
+      }
+      footer .wrap {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 900px) {
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .controls {
+          grid-template-columns: 1fr 1fr;
+        }
+        .field:first-child {
+          grid-column: 1/-1;
+        }
+      }
+      @media (max-width: 620px) {
+        .nav {
+          align-items: flex-start;
+          padding: 1rem 0;
+          flex-direction: column;
+        }
+        .nav-links {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 0.35rem;
+        }
+        .hero {
+          padding-top: 2.5rem;
+        }
+        .controls,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .field:first-child {
+          grid-column: auto;
+        }
+        .craft {
+          min-height: 0;
+        }
+        .visual {
+          height: 150px;
+        }
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#archive">Skip to craft archive</a>
+    <header class="mast">
+      <div class="wrap nav">
+        <a class="brand" href="index.html"
+          >The Missing Hours<small>Encounter field guide</small></a
+        >
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="index.html">Home</a
+          ><a class="active" href="alien-craft.html" aria-current="page"
+            >Craft</a
+          ><a href="alien-encounter-quiz.html">Quiz</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <span class="eyebrow">Restricted archive / fictional dataset</span>
+          <h1>Abduction craft index.</h1>
+          <p>
+            Explore recurring craft forms from UFO folklore and speculative
+            fiction. Compare reported capacity, crew size, range and alleged
+            biological cargo.
+          </p>
+          <p class="notice">
+            <strong>Important:</strong> The classifications and statistics below
+            are imaginative reconstructions for this website. They are not
+            verified scientific or military data.
+          </p>
+        </div>
+      </section>
+      <section class="wrap" id="archive" aria-labelledby="archiveTitle">
+        <h2 id="archiveTitle" class="label" style="margin-top: 2rem">
+          Search the archive
+        </h2>
+        <div class="controls">
+          <div class="field">
+            <label for="craftSearch">Craft name or feature</label
+            ><input
+              id="craftSearch"
+              type="search"
+              placeholder="Try: disc, medical, aquatic"
+              autocomplete="off"
+              minlength="2"
+              maxlength="40"
+              aria-describedby="craftSearchHelp craftSearchError"
+              aria-invalid="false"
+            />
+            <small id="craftSearchHelp"
+              >Enter at least two letters or numbers.</small
+            >
+            <p class="field-error" id="craftSearchError" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="shapeFilter">Craft shape</label
+            ><select id="shapeFilter">
+              <option value="all">All shapes</option>
+              <option value="disc">Disc</option>
+              <option value="triangle">Triangle</option>
+              <option value="cigar">Cigar</option>
+              <option value="sphere">Sphere</option>
+              <option value="organic">Organic</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="riskFilter">Archive risk</label
+            ><select id="riskFilter">
+              <option value="all">All risk levels</option>
+              <option value="low">Low</option>
+              <option value="moderate">Moderate</option>
+              <option value="high">High</option>
+              <option value="extreme">Extreme</option>
+            </select>
+          </div>
+          <button class="button secondary" id="resetFilters" type="button">
+            Reset
+          </button>
+        </div>
+        <p class="summary" id="resultCount" role="status" aria-live="polite">
+          Showing 9 craft
+        </p>
+        <div class="grid" id="craftGrid"></div>
+        <p class="empty" id="emptyState" hidden>
+          No craft match those filters. Try a different search or reset the
+          archive.
+        </p>
+      </section>
+    </main>
+    <footer>
+      <div class="wrap">
+        <span
+          >© 2026 The Missing Hours · Fictional archive for education and
+          entertainment.</span
+        ><a href="#archive">Back to archive ↑</a>
+      </div>
+    </footer>
+    <dialog id="craftDialog" aria-labelledby="dialogTitle">
+      <div
+        class="dialog-craft-background"
+        id="dialogCraftBackground"
+        aria-hidden="true"
+      ></div>
+      <div class="dialog-head">
+        <button
+          class="close"
+          id="dialogClose"
+          type="button"
+          aria-label="Close craft details"
+        >
+          ✕</button
+        ><span class="label">Archive detail</span>
+        <h2 id="dialogTitle"></h2>
+      </div>
+      <div class="dialog-body">
+        <p id="dialogText"></p>
+        <div class="stats" id="dialogStats"></div>
+        <p>
+          <small
+            >All figures are speculative and created for this interactive field
+            guide.</small
+          >
+        </p>
+      </div>
+    </dialog>
+    <script>
+      "use strict";
+      const craft = [
+        {
+          name: "Zeta Scout Disc",
+          shape: "disc",
+          risk: "moderate",
+          crew: 3,
+          captives: "1–4",
+          length: "18 m",
+          range: "Planetary",
+          role: "Reconnaissance",
+          features: "disc silver scout medical beam",
+          description:
+            "A compact reconnaissance craft associated with close-range observation and short-duration collection missions.",
+          detail:
+            "Archive stories describe a silent disc with a rotating lower ring, three operating stations and a compact examination bay.",
+        },
+        {
+          name: "Orion Extraction Vessel",
+          shape: "triangle",
+          risk: "high",
+          crew: 12,
+          captives: "20–36",
+          length: "92 m",
+          range: "Interstellar",
+          role: "Extraction",
+          features: "triangle black extraction hangar stealth",
+          description:
+            "A large triangular vessel portrayed as a coordinated extraction platform with multiple transfer bays.",
+          detail:
+            "Its speculative layout includes a command tier, four containment rooms and a ventral bay for smaller scout craft.",
+        },
+        {
+          name: "Sirius Medical Sphere",
+          shape: "sphere",
+          risk: "low",
+          crew: 5,
+          captives: "1–2",
+          length: "14 m",
+          range: "Orbital",
+          role: "Medical survey",
+          features: "sphere white medical laboratory healing",
+          description:
+            "A bright spherical craft described in stories involving clinical observation and rapid biological scanning.",
+          detail:
+            "The interior is imagined as a seamless laboratory in which surfaces act as displays, scanners and control interfaces.",
+        },
+        {
+          name: "Draconid Carrier",
+          shape: "cigar",
+          risk: "extreme",
+          crew: 48,
+          captives: "80–120",
+          length: "410 m",
+          range: "Deep space",
+          role: "Carrier",
+          features: "cigar carrier reptilian containment large",
+          description:
+            "A fictional heavy carrier with extensive crew quarters, hangars and long-term containment capacity.",
+          detail:
+            "The carrier is presented as a mobile base rather than a landing craft, deploying smaller vehicles for surface operations.",
+        },
+        {
+          name: "Mantis Research Ark",
+          shape: "organic",
+          risk: "high",
+          crew: 24,
+          captives: "12–18",
+          length: "165 m",
+          range: "Interstellar",
+          role: "Research",
+          features: "organic mantis research genetic biological ark",
+          description:
+            "An organic-looking research vessel imagined with modular laboratories and environmental chambers.",
+          detail:
+            "Its interior is described as grown rather than manufactured, with flexible corridors and rooms that alter configuration.",
+        },
+        {
+          name: "Nordic Courier",
+          shape: "disc",
+          risk: "low",
+          crew: 6,
+          captives: "0–6",
+          length: "31 m",
+          range: "Interstellar",
+          role: "Transport",
+          features: "disc nordic courier transport luminous",
+          description:
+            "A streamlined transport craft associated in folklore with communication, escort and limited passenger transfer.",
+          detail:
+            "The archive model includes a six-seat bridge, a central navigation chamber and two adaptable passenger compartments.",
+        },
+        {
+          name: "Aquatic Survey Ray",
+          shape: "organic",
+          risk: "moderate",
+          crew: 8,
+          captives: "4–10",
+          length: "54 m",
+          range: "Oceanic",
+          role: "Aquatic survey",
+          features: "organic aquatic underwater ocean survey ray",
+          description:
+            "A manta-shaped vehicle designed in this fictional taxonomy for movement between deep water and atmosphere.",
+          detail:
+            "Stories imagine pressure-resistant chambers, water-sampling systems and a flooded habitat for aquatic specimens.",
+        },
+        {
+          name: "Silent Black Triangle",
+          shape: "triangle",
+          risk: "high",
+          crew: 9,
+          captives: "8–16",
+          length: "76 m",
+          range: "Planetary",
+          role: "Surveillance",
+          features: "triangle black silent surveillance missing time",
+          description:
+            "A slow-moving triangular craft associated with silent observation, powerful lights and missing-time reports.",
+          detail:
+            "The speculative plan places propulsion at each corner, with a central sensor well and shielded holding compartment.",
+        },
+        {
+          name: "Photonic Probe Orb",
+          shape: "sphere",
+          risk: "low",
+          crew: 0,
+          captives: "0",
+          length: "1.2 m",
+          range: "Local",
+          role: "Remote probe",
+          features: "sphere orb probe drone photonic unmanned",
+          description:
+            "An unmanned luminous probe intended to observe, map and transmit without carrying crew or biological subjects.",
+          detail:
+            "Rather than an abduction craft, this autonomous unit is imagined as a sensor node that can coordinate with a larger vessel.",
+        },
+      ];
+      const grid = document.querySelector("#craftGrid"),
+        search = document.querySelector("#craftSearch"),
+        shape = document.querySelector("#shapeFilter"),
+        risk = document.querySelector("#riskFilter"),
+        count = document.querySelector("#resultCount"),
+        empty = document.querySelector("#emptyState"),
+        searchError = document.querySelector("#craftSearchError");
+      const icon = {
+        disc: '<ellipse cx="150" cy="72" rx="102" ry="28" fill="#9ec3c5"/><ellipse cx="150" cy="60" rx="48" ry="24" fill="#d8ee9c"/><path d="M55 78 Q150 125 245 78" fill="#527981"/>',
+        triangle:
+          '<path d="M150 18 278 110 22 110Z" fill="#29454c" stroke="#b9d5cf" stroke-width="4"/><circle cx="150" cy="78" r="17" fill="#d8ee9c"/><circle cx="63" cy="96" r="8" fill="#efc688"/><circle cx="237" cy="96" r="8" fill="#efc688"/>',
+        cigar:
+          '<path d="M25 70 Q45 35 150 35T275 70Q255 105 150 105T25 70" fill="#6d8f94"/><path d="M85 45h130" stroke="#d8ee9c" stroke-width="5"/>',
+        sphere:
+          '<circle cx="150" cy="70" r="54" fill="#a8c7c8"/><circle cx="130" cy="48" r="18" fill="#e9ffb6" opacity=".8"/>',
+        organic:
+          '<path d="M25 92Q90 15 150 55Q210 15 275 92Q205 75 150 112Q95 75 25 92Z" fill="#759f8b" stroke="#d8ee9c" stroke-width="3"/>',
+      };
+      function stat(label, value) {
+        return `<div class="stat"><span>${label}</span><strong>${value}</strong></div>`;
+      }
+      function validateSearch() {
+        const value = search.value.trim();
+        let message = "";
+        if (value.length === 1) {
+          message = "Enter at least two characters, or clear the search field.";
+        } else if (value && !/^[\p{L}\p{N}\s'’-]+$/u.test(value)) {
+          message =
+            "Use letters, numbers, spaces, apostrophes or hyphens only.";
+        }
+        search.setAttribute("aria-invalid", String(Boolean(message)));
+        searchError.textContent = message;
+        return !message;
+      }
+      function render() {
+        if (!validateSearch()) return;
+        const term = search.value.trim().toLowerCase();
+        const matches = craft.filter(
+          (c) =>
+            (shape.value === "all" || c.shape === shape.value) &&
+            (risk.value === "all" || c.risk === risk.value) &&
+            `${c.name} ${c.features} ${c.role}`.toLowerCase().includes(term),
+        );
+        grid.innerHTML = matches
+          .map(
+            (c) =>
+              `<article class="craft" data-name="${c.name}"><div class="visual" aria-hidden="true"><svg viewBox="0 0 300 140" role="img">${icon[c.shape]}</svg></div><div class="body"><span class="label">${c.shape} / ${c.risk} risk</span><h2>${c.name}</h2><p class="description">${c.description}</p><div class="stats">${stat("Crew", c.crew)}${stat("Captured life forms", c.captives)}${stat("Length", c.length)}${stat("Mission", c.role)}</div><button class="button detail" type="button" data-craft="${c.name}">Open craft record →</button></div></article>`,
+          )
+          .join("");
+        count.textContent = `Showing ${matches.length} of ${craft.length} craft`;
+        empty.hidden = matches.length !== 0;
+        grid
+          .querySelectorAll("[data-craft]")
+          .forEach((button) => button.addEventListener("click", openDialog));
+      }
+      const dialog = document.querySelector("#craftDialog");
+      let opener = null;
+      function openDialog(event) {
+        opener = event.currentTarget;
+        const c = craft.find((item) => item.name === opener.dataset.craft);
+        document.querySelector("#dialogCraftBackground").innerHTML =
+          `<svg viewBox="0 0 300 140" focusable="false">${icon[c.shape]}</svg>`;
+        document.querySelector("#dialogTitle").textContent = c.name;
+        document.querySelector("#dialogText").textContent = c.detail;
+        document.querySelector("#dialogStats").innerHTML =
+          stat("Crew", c.crew) +
+          stat("Captured life forms", c.captives) +
+          stat("Length", c.length) +
+          stat("Range", c.range) +
+          stat("Mission", c.role) +
+          stat("Risk", c.risk);
+        dialog.showModal();
+      }
+      [search, shape, risk].forEach((control) =>
+        control.addEventListener(
+          control === search ? "input" : "change",
+          render,
+        ),
+      );
+      document.querySelector("#resetFilters").addEventListener("click", () => {
+        search.value = "";
+        search.setAttribute("aria-invalid", "false");
+        searchError.textContent = "";
+        shape.value = "all";
+        risk.value = "all";
+        render();
+        search.focus();
+      });
+      document
+        .querySelector("#dialogClose")
+        .addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener("close", () => opener?.focus());
+      render();
+    </script>
+  </body>
+</html>
