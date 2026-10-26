@@ -1,0 +1,247 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta
+      content="Learning references used while developing the Good Grief website."
+      name="description"
+    />
+    <title>Development References | Good Grief!</title>
+    <link href="styles.css" rel="stylesheet" />
+    <script
+      crossorigin="anonymous"
+      defer=""
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+    ></script>
+    <script defer="" src="script.js"></script>
+  </head>
+  <body data-page="references">
+    <a class="skip-link" href="#main"> Skip to main content </a>
+    <header class="site-header" id="top"></header>
+    <noscript>
+      <p class="shell">
+        Enable JavaScript to use the shared navigation and interactive features.
+        <a href="index.html">Return home</a>.
+      </p></noscript
+    >
+    <main class="page-main" id="main" tabindex="-1">
+      <div class="breadcrumbs-wrap">
+        <nav aria-label="Breadcrumb" class="shell breadcrumbs">
+          <ol>
+            <li>
+              <a href="index.html"> Home </a>
+            </li>
+            <li aria-current="page">Development references</li>
+          </ol>
+        </nav>
+      </div>
+      <section class="page-hero">
+        <div class="shell">
+          <p class="eyebrow">Learning evidence</p>
+          <h1>Development references.</h1>
+          <p>
+            Selected tutorials consulted for core HTML, CSS, JavaScript,
+            responsive design and jQuery techniques used in this educational
+            project.
+          </p>
+        </div>
+      </section>
+      <section aria-labelledby="referencesTitle" class="section shell">
+        <div class="section-heading">
+          <p class="eyebrow">01 / Sources</p>
+          <div>
+            <h2 id="referencesTitle">W3Schools tutorials.</h2>
+            <p>
+              These links document the underlying web-development techniques
+              demonstrated across the site.
+            </p>
+          </div>
+        </div>
+        <div class="reference-grid">
+          <article class="reference-card">
+            <h3>HTML</h3>
+            <p>
+              Semantic page structure, forms, fieldsets, labels, details,
+              dialogs and accessible attributes.
+            </p>
+            <a
+              class="text-link"
+              href="https://www.w3schools.com/html/"
+              rel="noopener"
+              target="_blank"
+            >
+              W3Schools HTML Tutorial
+              <span class="sr-only"> (opens in a new tab) </span>
+            </a>
+          </article>
+          <article class="reference-card">
+            <h3>CSS</h3>
+            <p>
+              Grid, Flexbox, responsive design, media queries, custom
+              properties, selectors and visual states.
+            </p>
+            <a
+              class="text-link"
+              href="https://www.w3schools.com/css/"
+              rel="noopener"
+              target="_blank"
+            >
+              W3Schools CSS Tutorial
+              <span class="sr-only"> (opens in a new tab) </span>
+            </a>
+          </article>
+          <article class="reference-card">
+            <h3>JavaScript</h3>
+            <p>
+              Functions, arrays, events, validation, DOM updates, local storage
+              and asynchronous requests.
+            </p>
+            <a
+              class="text-link"
+              href="https://www.w3schools.com/js/"
+              rel="noopener"
+              target="_blank"
+            >
+              W3Schools JavaScript Tutorial
+              <span class="sr-only"> (opens in a new tab) </span>
+            </a>
+          </article>
+          <article class="reference-card">
+            <h3>Responsive design</h3>
+            <p>
+              Mobile-first layouts and progressive enhancement for tablet and
+              desktop viewports.
+            </p>
+            <a
+              class="text-link"
+              href="https://www.w3schools.com/css/css_rwd_intro.asp"
+              rel="noopener"
+              target="_blank"
+            >
+              W3Schools Responsive Web Design
+              <span class="sr-only"> (opens in a new tab) </span>
+            </a>
+          </article>
+          <article class="reference-card">
+            <h3>HTML forms</h3>
+            <p>
+              Form controls, labels, validation attributes and grouped input
+              elements.
+            </p>
+            <a
+              class="text-link"
+              href="https://www.w3schools.com/html/html_forms.asp"
+              rel="noopener"
+              target="_blank"
+            >
+              W3Schools HTML Forms
+              <span class="sr-only"> (opens in a new tab) </span>
+            </a>
+          </article>
+          <article class="reference-card">
+            <h3>jQuery</h3>
+            <p>
+              Event handling, effects and progressive interface enhancements.
+            </p>
+            <a
+              class="text-link"
+              href="https://www.w3schools.com/jquery/"
+              rel="noopener"
+              target="_blank"
+            >
+              W3Schools jQuery Tutorial
+              <span class="sr-only"> (opens in a new tab) </span>
+            </a>
+          </article>
+        </div>
+        <p class="reference-note">
+          The design, written content and final implementation are original
+          coursework. Tutorials were used as learning references rather than
+          copied templates.
+        </p>
+      </section>
+      <section aria-labelledby="verificationTitle" class="section shell">
+        <h2 id="verificationTitle">API and accessibility checks</h2>
+        <p>
+          Checks recorded on 20 October 2026. These checks support development;
+          they are not a claim of WCAG conformance.
+        </p>
+        <h3>Verified automatically</h3>
+        <ul>
+          <li>
+            Simulated DOM checks: shared navigation and Escape handling; correct
+            tab state and focus with and without jQuery; character-dialog focus
+            return after saving a favourite.
+          </li>
+          <li>
+            Form checks: empty book-search input is rejected before a network
+            request; advice errors identify the affected field; the quiz
+            explains unanswered questions and hides Back on its first question.
+          </li>
+          <li>
+            Mock API checks: the submitted keyword appears in the request URL;
+            page navigation, work descriptions, no matches, malformed responses,
+            retry and an unavailable biography provider are handled.
+          </li>
+          <li>
+            Live server-side requests: Open Library search and Wikipedia’s
+            Charles M. Schulz summary each returned HTTP 200. This does not
+            verify browser CORS or every catalogue result.
+          </li>
+        </ul>
+        <h3>Still to verify manually</h3>
+        <ul>
+          <li>
+            Chrome, Safari and Firefox at phone, tablet and desktop widths; 200%
+            and 400% zoom; both themes and all focus indicators.
+          </li>
+          <li>
+            Keyboard-only use, native dialog focus containment and Escape, and
+            announcements with VoiceOver or NVDA.
+          </li>
+          <li>
+            Browser API requests, offline behaviour and a complete
+            contrast/accessibility audit. Automated DOM checks do not test
+            visual layout or screen-reader output.
+          </li>
+        </ul>
+        <h3>Implementation references</h3>
+        <ul>
+          <li>
+            <a href="https://openlibrary.org/dev/docs/api/search"
+              >Open Library Search API documentation</a
+            >
+          </li>
+          <li>
+            <a href="https://openlibrary.org/developers/api"
+              >Open Library catalogue and works APIs</a
+            >
+          </li>
+          <li>
+            <a href="https://www.mediawiki.org/wiki/Wikimedia_REST_API"
+              >Wikipedia summary API documentation</a
+            >
+          </li>
+          <li>
+            <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/"
+              >WAI-ARIA keyboard interaction for tabs</a
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <div class="shell footer-grid">
+        <div>
+          <strong> GOOD GRIEF! </strong>
+          <p>An unofficial educational fan project.</p>
+        </div>
+        <p>Development sources are recorded for transparency.</p>
+        <a href="#top"> Back to top ↑ </a>
+      </div>
+    </footer>
+  </body>
+</html>
