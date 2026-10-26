@@ -1,0 +1,89 @@
+<!doctype html><!-- FILE characters.html — Character directory: local character data, search/trait filters, profile dialog and saved favourite. Shared styles.css controls presentation; deferred script.js enhances the static HTML. -->
+<html lang="en">
+<!-- Metadata, page title and shared dependencies. Deferred scripts execute after HTML parsing, in document order. -->
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Search and explore the Peanuts characters."><title>Characters | Good Grief!</title>
+<link rel="preconnect" href="https://code.jquery.com">
+<meta name="application-name" content="Good Grief!">
+<link rel="stylesheet" href="styles.css">
+<script defer src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+</script>
+<script defer src="script.js">
+</script>
+</head>
+<body data-page="characters"><a class="skip-link" href="#main">Skip to main content</a>
+<div class="reading-progress" id="readingProgress" aria-hidden="true">
+</div>
+<!-- Shared navigation is present in HTML so links work without JavaScript. Keep link labels consistent and aria-current on this page only. -->
+<header class="site-header" id="top">
+      <div class="shell nav-shell">
+      <a class="brand" href="index.html" aria-label="Good Grief home">
+        <span>GOOD</span><span>GRIEF!</span><small>Peanuts fan field guide</small>
+      </a>
+      <button class="menu-button" id="menuButton" type="button"
+        aria-expanded="false" aria-controls="primaryNav">Menu <span aria-hidden="true">☰</span></button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"><span class="theme-toggle-icon" aria-hidden="true">☾</span><span class="theme-toggle-text">Dark</span></button>
+      <nav id="primaryNav" class="primary-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="characters.html" aria-current="page">Characters</a>
+        <a href="villains.html">Rivals</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="books.html">Library</a>
+        <a href="advice.html">Advice</a>
+        <a href="references.html">References</a>
+      </nav>
+    </div></header>
+<p class="connection-status shell" id="connectionStatus" role="status" hidden></p>
+<!-- Fallback guidance when scripting is disabled; interactive features depend on script.js. -->
+<noscript>
+<p class="shell">Navigation works without JavaScript. Enable JavaScript for quizzes, filters and other interactive features. <a href="index.html">Return home</a>.</p></noscript>
+<!-- Primary content and skip-link destination. tabindex=-1 allows programmatic focus without adding a normal Tab stop. -->
+<main id="main" class="page-main" tabindex="-1">
+<div class="breadcrumbs-wrap">
+<nav class="shell breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page">Characters</li></ol>
+</nav>
+</div>
+<!-- Content section (page content): headings and landmark labels describe this region to readers and assistive technology. -->
+<section class="page-hero">
+<div class="shell">
+<p class="eyebrow">Character directory</p>
+<h1>Meet the neighbourhood.</h1>
+<p>Search by name or personality, open an accessible profile and save your favourite character on this device.</p>
+</div>
+</section>
+<!-- Content section (charactersTitle): headings and landmark labels describe this region to readers and assistive technology. -->
+<section class="section shell" aria-labelledby="charactersTitle">
+<div class="section-heading">
+<p class="eyebrow">01 / Directory</p>
+<div>
+<h2 id="charactersTitle">Find a familiar face.</h2>
+<p>Use the controls below to narrow the complete character collection.</p>
+</div>
+</div>
+<div class="character-tools">
+<div class="field"><label for="characterSearch">Search characters</label><input id="characterSearch" type="search" placeholder="Try Rerun or Shermy" autocomplete="off">
+</div>
+<div class="field"><label for="traitFilter">Personality</label><select id="traitFilter"><option value="all">All personalities</option><option value="dreamer">Dreamers</option><option value="thinker">Thinkers</option><option value="bold">Bold voices</option><option value="loyal">Loyal friends</option></select>
+</div>
+</div>
+<p id="characterStatus" class="status" role="status" aria-live="polite">Showing 12 characters</p>
+<div class="character-grid" id="characterGrid">
+</div>
+<p class="empty-state" id="emptyState" hidden>No characters match that search. Try another word.</p>
+</section>
+</main>
+<!-- Shared footer and project attribution; maintain source and ownership notices. -->
+<footer>
+<div class="shell footer-grid">
+<div><strong>GOOD GRIEF!</strong>
+<p>An unofficial educational fan project.</p>
+</div>
+<p>Explore another part of the neighbourhood.</p><a href="index.html">Home</a>
+</div>
+</footer><!-- Modal dialog (characterDialog): script.js populates content and restores focus after closing. Preserve its accessible name and close control. -->
+<dialog id="characterDialog" aria-labelledby="dialogTitle"><button class="dialog-close" id="dialogClose" type="button" aria-label="Close character profile">×</button>
+<p class="eyebrow">Character file</p>
+<h2 id="dialogTitle">
+</h2>
+<p id="dialogText">
+</p><button class="favourite-button" id="favouriteButton" type="button" aria-pressed="false">☆ Save as favourite</button></dialog>
+</body></html>

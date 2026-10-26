@@ -1,0 +1,169 @@
+<!doctype html>
+
+<!-- FILE advice.html — Entertainment advice form: topic, short description and fictional payment confirmation; no real payment is processed. Shared styles.css controls presentation; deferred script.js enhances the static HTML. -->
+<html lang="en">
+  <!-- Metadata, page title and shared dependencies. Deferred scripts execute after HTML parsing, in document order. -->
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <meta
+      content="Visit Lucy van Pelt's playful interactive advice booth in the Good Grief Peanuts fan guide."
+      name="description"
+    />
+    <meta content="#ef4135" name="theme-color" />
+    <title>Lucy's Advice Booth | Good Grief!</title>
+    <link href="https://code.jquery.com" rel="preconnect" />
+    <meta content="Good Grief!" name="application-name" />
+    <link href="styles.css" rel="stylesheet" />
+    <script
+      crossorigin="anonymous"
+      defer=""
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+    ></script>
+    <script defer="" src="script.js"></script>
+  </head>
+  <body class="advice-page jq-redesign" data-page="advice">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <!-- Shared navigation is present in HTML so links work without JavaScript. Keep link labels consistent and aria-current on this page only. -->
+<header class="site-header" id="top">
+      <div class="shell nav-shell">
+      <a class="brand" href="index.html" aria-label="Good Grief home">
+        <span>GOOD</span><span>GRIEF!</span><small>Peanuts fan field guide</small>
+      </a>
+      <button class="menu-button" id="menuButton" type="button"
+        aria-expanded="false" aria-controls="primaryNav">Menu <span aria-hidden="true">☰</span></button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"><span class="theme-toggle-icon" aria-hidden="true">☾</span><span class="theme-toggle-text">Dark</span></button>
+      <nav id="primaryNav" class="primary-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="characters.html">Characters</a>
+        <a href="villains.html">Rivals</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="books.html">Library</a>
+        <a href="advice.html" aria-current="page">Advice</a>
+        <a href="references.html">References</a>
+      </nav>
+    </div></header>
+<p class="connection-status shell" id="connectionStatus" role="status" hidden></p>
+    <!-- Fallback guidance when scripting is disabled; interactive features depend on script.js. -->
+<noscript>
+      <p class="shell">
+        Navigation works without JavaScript. Enable JavaScript for quizzes, filters and other interactive features.
+        <a href="index.html">Return home</a>.
+      </p></noscript
+    >
+    <!-- Primary content and skip-link destination. tabindex=-1 allows programmatic focus without adding a normal Tab stop. -->
+<main id="main" tabindex="-1">
+      <div class="shell">
+        <nav aria-label="Breadcrumb" class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li aria-current="page">Lucy’s Advice Booth</li>
+          </ol>
+        </nav>
+      </div>
+      <!-- Content section (boothTitle): headings and landmark labels describe this region to readers and assistive technology. -->
+<section
+        aria-labelledby="boothTitle"
+        class="section booth-section advice-page-booth"
+      >
+        <div class="shell booth-wrap">
+          <header class="booth-sign">
+            <span>THE DOCTOR IS</span><strong>IN</strong>
+          </header>
+          <div class="booth-body">
+            <div class="booth-heading">
+              <p class="eyebrow">Interactive advice</p>
+              <h1 id="boothTitle">Lucy van Pelt’s psychiatric booth.</h1>
+              <p>
+                Choose what is troubling you, leave your five cents and receive
+                a confidently delivered piece of neighbourhood advice.
+              </p>
+            </div>
+            <!-- Form (adviceForm): preserve control IDs and label/error associations used by script.js. Validation feedback should remain available to keyboard and screen-reader users. -->
+<form class="advice-form" id="adviceForm" novalidate="">
+              <div class="field">
+                <label for="adviceTopic">What is the problem about?</label
+                ><select
+                  aria-describedby="adviceTopicError"
+                  id="adviceTopic"
+                  required=""
+                >
+                  <option value="">Choose a topic</option>
+                  <option value="confidence">Confidence</option>
+                  <option value="friendship">Friendship</option>
+                  <option value="school">School</option>
+                  <option value="worry">Worry</option>
+                  <option value="kites">Kites and impossible plans</option>
+                </select>
+                <p class="form-error" id="adviceTopicError"></p>
+              </div>
+              <div class="field">
+                <label for="problemText">Tell Lucy what happened</label
+                ><textarea
+                  aria-describedby="characterCount problemTextError"
+                  id="problemText"
+                  maxlength="180"
+                  placeholder="Describe the problem in a sentence or two…"
+                  required=""
+                  rows="4"
+                ></textarea>
+                <p class="form-error" id="problemTextError"></p>
+                <span class="character-count" id="characterCount"
+                  >0 / 180 characters</span
+                >
+              </div>
+              <label class="nickel-check"
+                ><input
+                  aria-describedby="nickelPaidError"
+                  id="nickelPaid"
+                  required=""
+                  type="checkbox"
+                />
+                I have placed five cents in the jar.</label
+              >
+              <p class="form-error" id="nickelPaidError"></p>
+              <p class="form-error" id="adviceError" role="alert"></p>
+              <button class="button dark" type="submit">Ask Lucy</button>
+            </form>
+            <aside
+              aria-live="polite"
+              class="advice-result"
+              hidden=""
+              id="adviceResult"
+              tabindex="-1"
+            >
+              <p class="eyebrow">Lucy’s advice</p>
+              <blockquote id="adviceText"></blockquote>
+              <p class="receipt">Consultation complete · 5¢</p>
+              <button class="text-button" id="askAgain" type="button">
+                Ask another question ↻
+              </button>
+            </aside>
+          </div>
+          <p class="booth-disclaimer">
+            For playful entertainment only. This is not mental-health or medical
+            advice.
+          </p>
+          <p class="home-return">
+            <a class="button secondary" href="index.html">← Back to home</a>
+          </p>
+        </div>
+      </section>
+    </main>
+    <!-- Shared footer and project attribution; maintain source and ownership notices. -->
+<footer>
+      <div class="shell footer-grid">
+        <div>
+          <strong>GOOD GRIEF!</strong>
+          <p>An unofficial educational fan project.</p>
+        </div>
+        <p>
+          Peanuts and its characters are trademarks of their respective owners.
+          This site is not affiliated with or endorsed by Peanuts Worldwide.
+        </p>
+        <a href="index.html">Home</a>
+      </div>
+    </footer>
+  </body>
+</html>
