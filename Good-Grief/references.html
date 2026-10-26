@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!--
+ FILE: references.html
+ PURPOSE: Development references, framework attribution and a technical map explaining the site architecture.
+ STRUCTURE: Semantic HTML supplies content and navigation; bootstrap.min.css contains the vendor framework; styles.css contains original layouts and theme.
+ app.js supplies the shared libraries and feature initializers, which guard against missing page-specific elements.
+ Keep IDs referenced by JavaScript and aria-controls/aria-labelledby in sync when editing.
+ This file is static and can be hosted on GitHub Pages; no Python or server application is needed.
+-->
+<html lang="en">
+ <!-- Document metadata and shared assets. The deferred script runs after HTML parsing so feature controls exist before initialization. -->
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="Learning references used while developing the Good Grief website." name="description"/>
+  <title>
+   Development References | Good Grief!
+  </title>
+  <!-- Third-party Bootstrap components; original styles load second. -->
+  <link href="bootstrap.min.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet"/>
+  <script defer="" src="app.js">
+  </script>
+ </head>
+ <body data-page="references">
+  <a class="skip-link" href="#main">
+   Skip to main content
+  </a>
+  <!-- Shared navigation is written into the HTML, so every destination remains available without JavaScript. Bootstrap progressively enhances the mobile collapse control. -->
+  <header class="site-header" id="top" tabindex="-1">
+   <div class="shell nav-shell container navbar navbar-expand-xl gap-3 py-3">
+    <a aria-label="Good Grief home" class="brand navbar-brand" href="index.html">
+     <span>
+      GOOD
+     </span>
+     <span>
+      GRIEF!
+     </span>
+     <small>
+      Peanuts fan field guide
+     </small>
+    </a>
+    <button aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#primaryNav" data-bs-toggle="collapse" id="menuButton" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <button aria-label="Switch to dark mode" aria-pressed="false" class="theme-toggle btn btn-outline-secondary ms-auto order-xl-last" id="themeToggle" type="button">
+     <span aria-hidden="true" class="theme-toggle-icon">
+      ☾
+     </span>
+     <span class="theme-toggle-text">
+      Dark
+     </span>
+    </button>
+    <nav aria-label="Main navigation" class="collapse navbar-collapse" id="primaryNav">
+     <div class="navbar-nav ms-auto gap-1">
+      <a class="nav-link" href="index.html">
+       Home
+      </a>
+      <a class="nav-link" href="characters.html">
+       Characters
+      </a>
+      <a class="nav-link" href="villains.html">
+       Rivals
+      </a>
+      <a class="nav-link" href="quiz.html">
+       Quiz
+      </a>
+      <a class="nav-link" href="books.html">
+       Library
+      </a>
+      <a class="nav-link" href="advice.html">
+       Advice
+      </a>
+      <a aria-current="page" class="nav-link active" href="references.html">
+       References
+      </a>
+     </div>
+    </nav>
+   </div>
+  </header>
+  <p class="connection-status shell container alert alert-warning my-3" hidden="" id="connectionStatus" role="status">
+  </p>
+  <noscript>
+   <p class="shell container">
+    Navigation works without JavaScript. Enable JavaScript for quizzes, filters and other interactive features.
+    <a href="index.html">
+     Return home
+    </a>
+    .
+   </p>
+  </noscript>
+  <!-- Main content landmark. The skip link targets this region to bypass repeated navigation. -->
+  <main class="page-main" id="main" tabindex="-1">
+   <div class="breadcrumbs-wrap">
+    <nav aria-label="Breadcrumb" class="shell breadcrumbs container">
+     <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">
+       <a href="index.html">
+        Home
+       </a>
+      </li>
+      <li aria-current="page" class="breadcrumb-item">
+       Development references
+      </li>
+     </ol>
+    </nav>
+   </div>
+   <!-- CONTENT SECTION: Development references.. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section class="page-hero">
+    <div class="shell container">
+     <p class="eyebrow">
+      Learning evidence
+     </p>
+     <h1>
+      Development references.
+     </h1>
+     <p>
+      Selected tutorials consulted for core HTML, CSS, JavaScript,
+            responsive design and jQuery techniques used in this educational
+            project.
+     </p>
+    </div>
+   </section>
+   <!-- CONTENT SECTION: W3Schools tutorials.. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section aria-labelledby="referencesTitle" class="section shell container">
+    <div class="section-heading align-items-start mb-4">
+     <p class="eyebrow">
+      01 / Sources
+     </p>
+     <div>
+      <h2 id="referencesTitle">
+       W3Schools tutorials.
+      </h2>
+      <p>
+       These links document the underlying web-development techniques
+              demonstrated across the site.
+      </p>
+     </div>
+    </div>
+    <div class="reference-grid content-grid">
+     <div class="grid-item">
+      <article class="reference-card card h-100 card-body">
+       <h3>
+        HTML
+       </h3>
+       <p>
+        Semantic page structure, forms, fieldsets, labels, details,
+              dialogs and accessible attributes.
+       </p>
+       <a class="text-link" href="https://www.w3schools.com/html/" rel="noopener" target="_blank">
+        W3Schools HTML Tutorial
+        <span class="sr-only">
+         (opens in a new tab)
+        </span>
+       </a>
+      </article>
+     </div>
+     <div class="grid-item">
+      <article class="reference-card card h-100 card-body">
+       <h3>
+        CSS
+       </h3>
+       <p>
+        Grid, Flexbox, responsive design, media queries, custom
+              properties, selectors and visual states.
+       </p>
+       <a class="text-link" href="https://www.w3schools.com/css/" rel="noopener" target="_blank">
+        W3Schools CSS Tutorial
+        <span class="sr-only">
+         (opens in a new tab)
+        </span>
+       </a>
+      </article>
+     </div>
+     <div class="grid-item">
+      <article class="reference-card card h-100 card-body">
+       <h3>
+        JavaScript
+       </h3>
+       <p>
+        Functions, arrays, events, validation, DOM updates, local storage
+              and asynchronous requests.
+       </p>
+       <a class="text-link" href="https://www.w3schools.com/js/" rel="noopener" target="_blank">
+        W3Schools JavaScript Tutorial
+        <span class="sr-only">
+         (opens in a new tab)
+        </span>
+       </a>
+      </article>
+     </div>
+     <div class="grid-item">
+      <article class="reference-card card h-100 card-body">
+       <h3>
+        Responsive design
+       </h3>
+       <p>
+        Mobile-first layouts and progressive enhancement for tablet and
+              desktop viewports.
+       </p>
+       <a class="text-link" href="https://www.w3schools.com/css/css_rwd_intro.asp" rel="noopener" target="_blank">
+        W3Schools Responsive Web Design
+        <span class="sr-only">
+         (opens in a new tab)
+        </span>
+       </a>
+      </article>
+     </div>
+     <div class="grid-item">
+      <article class="reference-card card h-100 card-body">
+       <h3>
+        HTML forms
+       </h3>
+       <p>
+        Form controls, labels, validation attributes and grouped input
+              elements.
+       </p>
+       <a class="text-link" href="https://www.w3schools.com/html/html_forms.asp" rel="noopener" target="_blank">
+        W3Schools HTML Forms
+        <span class="sr-only">
+         (opens in a new tab)
+        </span>
+       </a>
+      </article>
+     </div>
+     <div class="grid-item">
+      <article class="reference-card card h-100 card-body">
+       <h3>
+        jQuery
+       </h3>
+       <p>
+        Event handling, effects and progressive interface enhancements.
+       </p>
+       <a class="text-link" href="https://www.w3schools.com/jquery/" rel="noopener" target="_blank">
+        W3Schools jQuery Tutorial
+        <span class="sr-only">
+         (opens in a new tab)
+        </span>
+       </a>
+      </article>
+     </div>
+    </div>
+    <p class="reference-note">
+     The custom theme and application content build on the existing
+          coursework. Tutorials were used as learning references rather than
+          copied templates.
+    </p>
+   </section>
+   <!-- API and accessibility implementation sources. -->
+   <section aria-labelledby="implementationTitle" class="section shell container">
+    <h2 id="implementationTitle">Implementation references</h2>
+    <ul>
+     <li>
+      <a href="https://openlibrary.org/dev/docs/api/search">
+       Open Library Search API documentation
+      </a>
+     </li>
+     <li>
+      <a href="https://openlibrary.org/developers/api">
+       Open Library catalogue and works APIs
+      </a>
+     </li>
+     <li>
+      <a href="https://www.mediawiki.org/wiki/Wikimedia_REST_API">
+       Wikipedia summary API documentation
+      </a>
+     </li>
+     <li>
+      <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">
+       WAI-ARIA keyboard interaction for tabs
+      </a>
+     </li>
+    </ul>
+   </section>
+   <!-- CONTENT SECTION: Bootstrap migration. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section class="section container">
+    <h2>
+     Bootstrap migration
+    </h2>
+    <p>
+     This version uses Bootstrap 5.3.8 for navigation, cards, buttons and form controls. Original CSS supplies mobile-first content grids, editorial layouts and the Peanuts visual theme. Native dialogs and existing API and quiz logic are retained.
+    </p>
+    <p>
+     <a href="https://getbootstrap.com/docs/5.3/">
+      Bootstrap documentation
+     </a>
+     ·
+     <a href="https://github.com/twbs/bootstrap/blob/v5.3.8/LICENSE">
+      Bootstrap MIT licence
+     </a>
+    </p>
+   </section>
+   <!-- CONTENT SECTION: Original CSS layout edition. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section class="container section">
+    <h2>
+     Original CSS layout edition
+    </h2>
+    <p>
+     Seven HTML pages, styles.css, bootstrap.min.css and app.js make up this ten-file website. bootstrap.min.css contains the vendor framework; styles.css contains original layouts and theme. app.js contains the JavaScript libraries, reusable application functions and the service worker. All libraries are included locally. Basic navigation remains available without JavaScript.
+    </p>
+    <p>
+     Upload all ten files together to GitHub Pages. No Python or build step is needed. Native dialogs, cached API results and matching-edition cover recovery are retained. Framework licence notices are included in app.js.
+    </p>
+   </section>
+   <!-- Technical map: semantic HTML keeps the architecture readable without JavaScript. -->
+   <section class="section container" aria-labelledby="technicalMapTitle">
+    <p class="eyebrow">Architecture / how it connects</p>
+    <h2 id="technicalMapTitle">Technical map</h2>
+    <p>A static, ten-file website. The browser renders the pages, runs the interactions and requests public API data. No application server or database is required.</p>
+    <figure class="technical-map" aria-labelledby="mapCaption">
+     <ol class="architecture-flow">
+      <li><h3>1. Pages and navigation</h3><p><strong>Seven HTML files</strong> provide semantic content, forms and links. Every page loads the same two stylesheets and <code>app.js</code>. Navigation links work without JavaScript.</p></li>
+      <li><h3>2. Shared presentation</h3><p><code>bootstrap.min.css</code> loads first for framework components. <code>styles.css</code> loads second for original mobile-first grids, yellow banners, theme colours and focus indicators.</p></li>
+      <li><h3>3. Browser interactions</h3><p><code>app.js</code> bundles jQuery, Bootstrap JavaScript and reusable application functions. Page initialisers activate the relevant filters, tabs, dialogs, quiz, form validation and theme controls.</p></li>
+      <li><h3>4. External content</h3><p>The Library form passes a search term to JavaScript. Fetch requests retrieve Open Library search results and work details, plus a Wikipedia author summary. Cover images load separately from Open Library. Results and status messages update the page.</p></li>
+      <li><h3>5. Local persistence and offline support</h3><p><code>localStorage</code> holds preferences, favourites and bounded API response data. The same <code>app.js</code> also runs separately as a service worker, using Cache Storage for local files and requested media. Previously saved content can support offline use; uncached content still needs a connection.</p></li>
+     </ol>
+     <figcaption id="mapCaption">Reading the map: HTML loads shared assets; JavaScript connects user actions to APIs and browser storage. The service worker operates in its own background context on HTTPS or localhost.</figcaption>
+    </figure>
+    <h3>Page responsibilities</h3>
+    <dl class="page-responsibilities">
+     <div><dt><a href="index.html">index.html</a></dt><dd>Home page, theme tabs and image gallery.</dd></div>
+     <div><dt><a href="characters.html">characters.html</a></dt><dd>Character search and filtering, profile dialogs and saved favourite.</dd></div>
+     <div><dt><a href="villains.html">villains.html</a></dt><dd>Rival categories and expandable case notes.</dd></div>
+     <div><dt><a href="quiz.html">quiz.html</a></dt><dd>Validated quiz steps, progress and character result.</dd></div>
+     <div><dt><a href="books.html">books.html</a></dt><dd>API search, catalogue sorting and pagination, covers and book details.</dd></div>
+     <div><dt><a href="advice.html">advice.html</a></dt><dd>Validated topic, message and checkbox form with browser-generated advice.</dd></div>
+     <div><dt><a href="references.html">references.html</a></dt><dd>Learning sources, framework attribution and this technical map.</dd></div>
+    </dl>
+    <h3>Example: finding a book</h3>
+    <p>Enter a title → validate the search → request Open Library JSON → render book cards → load cover images. Selecting a book requests its work details and opens a dialog. Failed requests show feedback and may use a previously saved response.</p>
+   </section>
+  </main>
+  <!-- Shared footer with project identity and navigation. Keep its content consistent across pages. -->
+  <footer>
+   <div class="shell footer-grid container d-flex flex-wrap justify-content-between gap-4">
+    <div>
+     <strong>
+      GOOD GRIEF!
+     </strong>
+     <p>
+      An unofficial educational fan project.
+     </p>
+    </div>
+    <p>
+     Peanuts and its characters are trademarks of their respective owners.
+          This site is not affiliated with or endorsed by Peanuts Worldwide.
+    </p>
+    <a href="#top">
+     Back to top ↑
+    </a>
+   </div>
+  </footer>
+ </body>
+</html>

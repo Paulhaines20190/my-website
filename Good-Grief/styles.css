@@ -1,0 +1,239 @@
+/* FILE: styles.css — original Good Grief presentation and responsive layouts.
+ * Load after bootstrap.min.css (third-party components, separately attributed).
+ * Content grids and editorial layouts below use our own mobile-first CSS Grid.
+ * Breakpoints are in rem: one column by default, two at 40rem, three at 64rem.
+ * Reference for Grid syntax: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout
+ * Reference for focus: https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html
+ */
+/* Good Grief — Bootstrap 5 theme.
+   Bootstrap supplies navbar, form, card and spacing utilities; original CSS owns content layouts.
+   This file defines the original comic-book identity and accessible states. */
+/* THEME TOKENS: centralize brand colours, surfaces and Bootstrap variable overrides for the light theme. */
+:root {
+  --gg-paper: #fff8e7;
+  --gg-ink: #171717;
+  --gg-muted: #5f5a51;
+  --gg-card: #fffdf7;
+  --gg-line: #211f1a;
+  --gg-red: #b3261e;
+  --gg-error: #b32118;
+  --gg-radius: .75rem;
+  --gg-gap: 1.5rem;
+  --gg-yellow: #ffd72e;
+  --gg-shadow: 5px 5px 0 #211f1a;
+  --bs-body-font-family: 'Segoe UI', system-ui, sans-serif;
+  --bs-body-color: var(--gg-ink);
+  --bs-body-bg: var(--gg-paper);
+  --bs-border-color: var(--gg-line);
+  --bs-link-color: #9c201a;
+  --bs-link-color-rgb: 156, 32, 26;
+  --bs-link-hover-color: #701711;
+  --bs-link-hover-color-rgb: 112, 23, 17;
+}
+/* DARK THEME: override shared tokens so components inherit readable colours without per-page duplication. */
+[data-bs-theme='dark'] {
+  --gg-error: #ffb9b2;
+  --gg-paper: #171717;
+  --gg-ink: #f7f1e5;
+  --gg-muted: #ccc4b8;
+  --gg-card: #252525;
+  --gg-line: #eee6da;
+  --gg-shadow: 5px 5px 0 #050505;
+  --bs-body-color: var(--gg-ink);
+  --bs-body-bg: var(--gg-paper);
+  --bs-border-color: var(--gg-line);
+  --bs-link-color: #ffe180;
+  --bs-link-color-rgb: 255, 225, 128;
+  --bs-link-hover-color: #fff2c6;
+  --bs-link-hover-color-rgb: 255, 242, 198;
+}
+/* BASE DOCUMENT: typography, wrapping and scroll positioning. Reduced motion is handled at the end. */
+html { scroll-behavior: smooth; scroll-padding-top: 0; }
+body { line-height: 1.65; background-image: radial-gradient(#8882 .7px, transparent .7px); background-size: 12px 12px; }
+h1,h2,h3 { font-weight: 900; letter-spacing: -.035em; line-height: 1.1; overflow-wrap: anywhere; }
+h1 { font-size: clamp(2.5rem, 6vw, 5.5rem); }
+h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); }
+h3 { font-size: 1.5rem; }
+p { overflow-wrap: anywhere; }
+img { max-width: 100%; }
+a { text-underline-offset: .2em; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid #111 !important; outline-offset: 3px; box-shadow: 0 0 0 7px #fff !important; }
+.skip-link { position: fixed; top: -6rem; left: 1rem; z-index: 2000; padding: .75rem 1rem; background: #111; color: #fff; }
+.skip-link:focus { top: 1rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+/* ORIGINAL LAYOUTS: intrinsic minimums allow long content to wrap at zoom.
+   All collections share one grid definition; only column counts vary. */
+.content-grid, .section-heading, .hero-layout, .character-tools, .library-tools {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gg-gap);
+}
+.content-grid > *, .section-heading > *, .hero-layout > *,
+.character-tools > *, .library-tools > * { min-width: 0; }
+.grid-item { display: flex; }
+.grid-item > .card { width: 100%; }
+.hero-layout { align-items: center; gap: clamp(1.5rem, 4vw, 3rem); }
+.character-tools, .library-tools { align-items: end; margin-bottom: 1.5rem; }
+.library-tools .field { margin-bottom: 0 !important; }
+input, select, textarea { max-width: 100%; }
+textarea { resize: vertical; }
+.card, .theme-panel, dialog { overflow-wrap: anywhere; }
+.navbar-nav .nav-link[aria-current="page"] { text-decoration: underline; text-underline-offset: .3em; }
+/* A long set of tabs wraps instead of causing horizontal scrolling. */
+[role="tablist"] { flex-wrap: wrap; gap: .5rem; }
+@media (min-width: 40rem) {
+  .content-grid, .character-tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .library-tools { grid-template-columns: minmax(0, 1fr) auto; }
+}
+@media (min-width: 64rem) {
+  .content-grid:not(.villain-grid) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .section-heading { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); }
+  .hero-layout { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+}
+/* NAVIGATION: brand styling and progressive enhancement; static links remain available without JavaScript. */
+.site-header { position: relative; z-index: 1020; background: var(--gg-paper); border-bottom: 3px solid var(--gg-line); }
+.brand { color: var(--gg-ink); font-weight: 1000; letter-spacing: -.07em; line-height: .95; }
+.brand span { display: inline-block; }
+.brand span:nth-child(2) { color: var(--gg-red); margin-left: .2em; }
+[data-bs-theme='dark'] .brand span:nth-child(2) { color: #ffb9b2; }
+.brand small { display: block; font-size: .6rem; letter-spacing: .06em; margin-top: .4rem; }
+.navbar-nav .nav-link { color: var(--gg-ink); font-size: .9rem; font-weight: 800; padding: .55rem .7rem; border-radius: .4rem; }
+.navbar-nav .nav-link[aria-current="page"],.navbar-nav .nav-link:hover { background: var(--gg-red); color: #fff; }
+html:not(.js) .navbar-collapse { display: block; flex-basis: 100%; }
+html:not(.js) .navbar-toggler, html:not(.js) .theme-toggle { display: none; }
+html:not(.js) .navbar-nav { flex-wrap: wrap; flex-direction: row; }
+/* BUTTONS: customize Bootstrap button variables while retaining its interaction and disabled states. */
+.btn { font-weight: 800; min-height: 44px; border-width: 2px; white-space: normal; }
+.btn-primary {
+  --bs-btn-bg: #b3261e; --bs-btn-border-color: #b3261e; --bs-btn-color: #fff;
+  --bs-btn-hover-bg: #8d1c16; --bs-btn-hover-border-color: #8d1c16;
+  --bs-btn-active-bg: #701711; --bs-btn-active-border-color: #701711;
+  --bs-btn-disabled-bg: #655f59; --bs-btn-disabled-border-color: #655f59;
+}
+.btn-outline-dark,.btn-outline-secondary { --bs-btn-color: var(--gg-ink); --bs-btn-border-color: var(--gg-line); --bs-btn-hover-bg: var(--gg-ink); --bs-btn-hover-color: var(--gg-paper); --bs-btn-hover-border-color: var(--gg-ink); --bs-btn-active-bg: var(--gg-ink); --bs-btn-active-color: var(--gg-paper); }
+.btn-primary:not(:disabled) { box-shadow: 3px 3px 0 var(--gg-line); }
+/* PAGE IDENTITY: section spacing, hero, headings and introductory content. */
+.section { padding-block: clamp(2.5rem, 6vw, 5rem); }
+.eyebrow,.villain-number { font-size: .75rem; font-weight: 900; text-transform: uppercase; letter-spacing: .13em; color: var(--gg-muted); }
+/* Shared banner colours stay readable in both themes. */
+.hero,.page-hero { background: var(--gg-yellow); color: #171717; }
+.hero { border-bottom: 3px solid var(--gg-line); }
+.hero-grid { padding-block: clamp(3rem, 7vw, 6rem); }
+.hero .eyebrow,.page-hero .eyebrow { color: #504614; }
+.hero h1 em { color: #9c201a; font-style: normal; }
+.hero-intro { max-width: 38rem; font-size: 1.15rem; margin-block: 1.5rem; }
+.hero a.text-link { color: #171717; font-weight: 800; }
+.hero-note { padding: 2rem; background: #fffdf7; color: #171717; border: 3px solid #171717; box-shadow: 8px 8px 0 #171717; transform: rotate(2deg); }
+.hero-note p { font-size: 1.8rem; font-weight: 900; line-height: 1.2; }
+.ticker { background: #171717; color: #fff8e7; padding: 1rem; }
+.ticker-track { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; font-size: .8rem; font-weight: 800; }
+.ticker i { color: var(--gg-yellow); }
+.page-hero { padding-block: clamp(2.5rem, 5vw, 4.5rem); border-bottom: 2px solid var(--gg-line); }
+.page-hero p:last-child { max-width: 48rem; font-size: 1.1rem; margin-top: 1.25rem; }
+.breadcrumbs { padding-block: 1rem; font-size: .85rem; }
+.breadcrumb-item,.breadcrumb-item.active,.breadcrumb-item + .breadcrumb-item::before { color: var(--gg-muted); }
+/* REUSABLE CARDS: consistent borders, surfaces and shadows across static and dynamically rendered content. */
+.card { --bs-card-bg: var(--gg-card); --bs-card-color: var(--gg-ink); --bs-card-border-color: var(--gg-line); border-width: 2px; border-radius: var(--gg-radius); box-shadow: var(--gg-shadow); }
+.page-card { color: var(--gg-ink); text-decoration: none; padding: 1.5rem; }
+.page-card > span { display: block; margin-bottom: 1.5rem; font-weight: 900; color: var(--gg-muted); }
+.page-card strong { margin-top: auto; text-decoration: underline; }
+.page-card:hover { transform: translateY(-3px); }
+.reference-card,.villain-card { padding: 1.5rem; }
+.reference-card a { margin-top: auto; }
+.photo-card { margin: 0; overflow: hidden; }
+.photo-card img { width: 100%; height: 260px; object-fit: cover; }
+.photo-card figcaption { padding: 1.25rem; }
+.photo-card figcaption strong { display: block; }
+.theme-panel { padding: 2rem; border: 2px solid var(--gg-line); background: var(--gg-card); border-radius: var(--gg-radius); }
+.nav-pills .nav-link { color: var(--gg-ink); background: var(--gg-card); border: 2px solid var(--gg-line); }
+.nav-pills [aria-selected='true'] { background: #171717; color: #fff8e7; }
+[data-bs-theme='dark'] .nav-pills [aria-selected='true'] { background: var(--gg-yellow); color: #171717; }
+.case-panel-title { margin-block: 2rem; }
+.villain-icon { font-size: 3rem; display: block; margin-block: .75rem; }
+.villain-number { display: block; }
+.villain-card details { border-top: 2px solid var(--gg-line); margin-top: auto; padding-top: 1rem; }
+summary { cursor: pointer; font-weight: 800; min-height: 44px; }
+.character-card { position: relative; padding: 1.25rem; }
+.character-photo { width: 100%; height: 240px; object-fit: contain; background: #fff; border-radius: .4rem; margin-bottom: 1rem; }
+.character-source { font-size: .85rem; margin-bottom: 1rem; }
+.favourite-mark { position: absolute; right: 1.5rem; top: 1.5rem; background: #ffd72e; color: #171717; border-radius: 50%; padding: .25rem .6rem; }
+/* FORMS: visible labels, controls, validation and theme-aware error colours. */
+.form-label,legend { font-weight: 800; }
+.form-control,.form-select { min-height: 48px; border-width: 2px; border-color: var(--gg-line); background-color: var(--gg-card); color: var(--gg-ink); }
+.form-control::placeholder { color: var(--gg-muted); opacity: 1; }
+.form-control:focus,.form-select:focus { background-color: var(--gg-card); color: var(--gg-ink); border-color: var(--gg-line); }
+.form-check-input { border: 2px solid var(--gg-line); width: 1.2em; height: 1.2em; margin-right: .5rem; }
+.form-check-input:checked { background-color: #b3261e; border-color: #b3261e; }
+.form-error { min-height: 1.4em; color: var(--gg-error); font-size: .9rem; margin-block: .35rem; }
+[aria-invalid='true'] { border-color: var(--gg-error); outline: 2px solid var(--gg-error); }
+/* BOOK CATALOGUE: cover sizing, fallback states, metadata and API source details. */
+.library-sort { max-width: 26rem; margin-top: 1.25rem; }
+.book-cover { height: 270px; width: 100%; object-fit: contain; padding: 1rem; background: #f4eddb; border-radius: .65rem .65rem 0 0; }
+.book-cover-placeholder { min-height: 270px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; gap: .75rem; background: var(--gg-card); border-bottom: 2px dashed var(--gg-line); text-align: center; }
+.book-meta,.character-count,.booth-disclaimer { color: var(--gg-muted); font-size: .9rem; }
+.book-card > .book-meta { padding: .5rem 1rem; margin: 0; }
+.book-card .text-link { margin-top: auto; }
+.author-context { margin-top: 2rem; }
+.api-credit { margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--gg-line); }
+.page-actions { margin-top: 2rem; }
+#bookDescription { white-space: pre-line; overflow-wrap: anywhere; }
+/* DIALOGS: constrain height for scrolling and style native modal surfaces and backdrops. */
+dialog { width: min(42rem, calc(100% - 2rem)); max-height: 85dvh; overflow: auto; padding: clamp(1rem, 4vw, 2rem); border: 3px solid var(--gg-line); border-radius: var(--gg-radius); background: var(--gg-card); color: var(--gg-ink); }
+dialog::backdrop { background: #000b; }
+.dialog-close,.jq-lightbox-close { float: right; min-width: 44px; min-height: 44px; margin: 0 0 1rem 1rem; }
+.jq-lightbox img { max-height: 65vh; width: 100%; object-fit: contain; }
+.jq-lightbox figure { margin: 0; }
+.jq-lightbox figcaption { padding-top: 1rem; }
+/* QUIZ: question choices, progress and results; hidden steps remain controlled by JavaScript. */
+.quiz-card { max-width: 56rem; margin-inline: auto; }
+.quiz-step legend { font-size: 1.3rem; margin-block: 1rem; }
+.quiz-step label { display: block; padding: 1rem; border: 2px solid var(--gg-line); border-radius: .5rem; cursor: pointer; }
+.quiz-step label:has(:checked) { background: #ffd72e; color: #171717; }
+.quiz-controls { margin-top: 1.5rem; }
+.quiz-message { min-height: 1.6em; margin-top: 1rem; }
+.quiz-progress { height: .7rem; background: #bbb; }
+.quiz-progress span { display: block; background: #b3261e; transition: width .2s; }
+.quiz-result-image { width: min(100%, 260px); height: 260px; object-fit: contain; background: #fff; margin-block: 1rem; border-radius: .5rem; }
+/* ADVICE BOOTH: page-specific visual treatment around the shared validated form. */
+.booth-wrap { max-width: 58rem; }
+.booth-sign { background: #ffd72e; color: #171717; border: 3px solid #171717; padding: 1rem 2rem; text-align: center; font-size: 1.4rem; font-weight: 900; margin-bottom: 1.5rem; }
+.booth-sign strong { display: inline-block; margin-left: 1rem; font-size: 2.5rem; }
+.booth-heading { margin-bottom: 2rem; }
+.booth-heading h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+.booth-disclaimer,.home-return { margin-top: 1.5rem; }
+.advice-result blockquote { font-size: 1.6rem; font-weight: 800; }
+/* FOOTER AND STATUS: common footer, progress indicator and transient notifications. */
+footer { border-top: 3px solid var(--gg-line); padding-block: 2rem; margin-top: 2rem; }
+footer p { font-size: .85rem; color: var(--gg-muted); }
+.reading-progress { position: fixed; top: 0; height: 3px; background: #b3261e; z-index: 1100; }
+.jq-toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 1100; max-width: calc(100% - 2rem); padding: 1rem 1.5rem; border: 2px solid var(--gg-line); background: var(--gg-card); color: var(--gg-ink); box-shadow: var(--gg-shadow); }
+/* Keep content visible even if an observer or optional enhancement fails. */
+.jq-reveal { opacity: 1; }
+/* ACCESSIBILITY: disable animated transitions and decorative transforms when reduced motion is requested. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,*::before,*::after { animation: none !important; transition: none !important; }
+  .hero-note,.page-card:hover { transform: none; }
+}
+
+/* Preserve an explicit focus outline when the operating system forces colours. */
+@media (forced-colors: active) {
+  :focus-visible { outline: 3px solid Highlight !important; box-shadow: none !important; }
+  .card, .theme-panel { border-color: CanvasText; }
+  [aria-invalid='true'] { outline-style: dashed; }
+}
+
+/* TECHNICAL MAP: ordered architecture steps with a responsive page responsibility list.
+   Numbered headings express the flow without depending on colour or decorative arrows. */
+.technical-map { margin-block: 2rem; }
+.architecture-flow { list-style: none; padding: 0; display: grid; gap: 1.25rem; }
+.architecture-flow > li { padding: 1.5rem; background: var(--gg-card); border: 2px solid var(--gg-line); border-inline-start: .5rem solid var(--gg-yellow); border-radius: var(--gg-radius); }
+.architecture-flow p { margin-bottom: 0; }
+.technical-map figcaption { color: var(--gg-muted); margin-top: 1rem; }
+.page-responsibilities { display: grid; gap: 1rem; margin-block: 1.5rem 2rem; }
+.page-responsibilities > div { padding: 1rem; border-bottom: 1px solid var(--gg-line); min-width: 0; }
+.page-responsibilities dd { margin: .5rem 0 0; }
+@media (min-width: 40rem) {
+  .page-responsibilities { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

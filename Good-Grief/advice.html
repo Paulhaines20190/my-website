@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--
+ FILE: advice.html
+ PURPOSE: Interactive advice form: validates a topic, description and confirmation before showing a playful response.
+ STRUCTURE: Semantic HTML supplies content and navigation; bootstrap.min.css contains the vendor framework; styles.css contains original layouts and theme.
+ app.js supplies the shared libraries and feature initializers, which guard against missing page-specific elements.
+ Keep IDs referenced by JavaScript and aria-controls/aria-labelledby in sync when editing.
+ This file is static and can be hosted on GitHub Pages; no Python or server application is needed.
+-->
+<html lang="en">
+ <!-- Document metadata and shared assets. The deferred script runs after HTML parsing so feature controls exist before initialization. -->
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="Visit Lucy van Pelt's playful interactive advice booth in the Good Grief Peanuts fan guide." name="description"/>
+  <meta content="#ef4135" name="theme-color"/>
+  <title>
+   Lucy's Advice Booth | Good Grief!
+  </title>
+  <link href="https://code.jquery.com" rel="preconnect"/>
+  <meta content="Good Grief!" name="application-name"/>
+  <!-- Third-party Bootstrap components; original styles load second. -->
+  <link href="bootstrap.min.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet"/>
+  <script defer="" src="app.js">
+  </script>
+ </head>
+ <body class="advice-page jq-redesign" data-page="advice">
+  <a class="skip-link" href="#main">
+   Skip to main content
+  </a>
+  <!-- Shared navigation is written into the HTML, so every destination remains available without JavaScript. Bootstrap progressively enhances the mobile collapse control. -->
+  <header class="site-header" id="top" tabindex="-1">
+   <div class="shell nav-shell container navbar navbar-expand-xl gap-3 py-3">
+    <a aria-label="Good Grief home" class="brand navbar-brand" href="index.html">
+     <span>
+      GOOD
+     </span>
+     <span>
+      GRIEF!
+     </span>
+     <small>
+      Peanuts fan field guide
+     </small>
+    </a>
+    <button aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#primaryNav" data-bs-toggle="collapse" id="menuButton" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <button aria-label="Switch to dark mode" aria-pressed="false" class="theme-toggle btn btn-outline-secondary ms-auto order-xl-last" id="themeToggle" type="button">
+     <span aria-hidden="true" class="theme-toggle-icon">
+      ☾
+     </span>
+     <span class="theme-toggle-text">
+      Dark
+     </span>
+    </button>
+    <nav aria-label="Main navigation" class="collapse navbar-collapse" id="primaryNav">
+     <div class="navbar-nav ms-auto gap-1">
+      <a class="nav-link" href="index.html">
+       Home
+      </a>
+      <a class="nav-link" href="characters.html">
+       Characters
+      </a>
+      <a class="nav-link" href="villains.html">
+       Rivals
+      </a>
+      <a class="nav-link" href="quiz.html">
+       Quiz
+      </a>
+      <a class="nav-link" href="books.html">
+       Library
+      </a>
+      <a aria-current="page" class="nav-link active" href="advice.html">
+       Advice
+      </a>
+      <a class="nav-link" href="references.html">
+       References
+      </a>
+     </div>
+    </nav>
+   </div>
+  </header>
+  <p class="connection-status shell container alert alert-warning my-3" hidden="" id="connectionStatus" role="status">
+  </p>
+  <noscript>
+   <p class="shell container">
+    Navigation works without JavaScript. Enable JavaScript for quizzes, filters and other interactive features.
+    <a href="index.html">
+     Return home
+    </a>
+    .
+   </p>
+  </noscript>
+  <!-- Main content landmark. The skip link targets this region to bypass repeated navigation. -->
+  <main id="main" tabindex="-1">
+   <div class="shell container">
+    <nav aria-label="Breadcrumb" class="breadcrumbs">
+     <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">
+       <a href="index.html">
+        Home
+       </a>
+      </li>
+      <li aria-current="page" class="breadcrumb-item">
+       Lucy’s Advice Booth
+      </li>
+     </ol>
+    </nav>
+   </div>
+   <!-- CONTENT SECTION: Lucy van Pelt’s psychiatric booth.. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section aria-labelledby="boothTitle" class="section booth-section advice-page-booth">
+    <div class="shell booth-wrap container">
+     <header class="booth-sign">
+      <span>
+       THE DOCTOR IS
+      </span>
+      <strong>
+       IN
+      </strong>
+     </header>
+     <div class="booth-body card card-body p-4 p-md-5">
+      <div class="booth-heading">
+       <p class="eyebrow">
+        Interactive advice
+       </p>
+       <h1 id="boothTitle">
+        Lucy van Pelt’s psychiatric booth.
+       </h1>
+       <p>
+        Choose what is troubling you, leave your five cents and receive
+                a confidently delivered piece of neighbourhood advice.
+       </p>
+      </div>
+      <!-- FORM adviceForm: labels and grouped controls explain the expected input. JavaScript validates values before updating the page or issuing API requests; error IDs are linked with aria-describedby. -->
+      <form class="advice-form" id="adviceForm" novalidate="">
+       <div class="field mb-3">
+        <label class="form-label" for="adviceTopic">
+         What is the problem about?
+        </label>
+        <!-- CONTROL adviceTopic: select. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <select aria-describedby="adviceTopicError" class="form-select" id="adviceTopic" required="">
+         <option value="">
+          Choose a topic
+         </option>
+         <option value="confidence">
+          Confidence
+         </option>
+         <option value="friendship">
+          Friendship
+         </option>
+         <option value="school">
+          School
+         </option>
+         <option value="worry">
+          Worry
+         </option>
+         <option value="kites">
+          Kites and impossible plans
+         </option>
+        </select>
+        <p class="form-error" id="adviceTopicError">
+        </p>
+       </div>
+       <div class="field mb-3">
+        <label class="form-label" for="problemText">
+         Tell Lucy what happened
+        </label>
+        <!-- CONTROL problemText: textarea. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <textarea aria-describedby="characterCount problemTextError" class="form-control" id="problemText" maxlength="180" placeholder="Describe the problem in a sentence or two…" required="" rows="4"></textarea>
+        <p class="form-error" id="problemTextError">
+        </p>
+        <span class="character-count" id="characterCount">
+         0 / 180 characters
+        </span>
+       </div>
+       <label class="nickel-check form-label">
+        <!-- CONTROL nickelPaid: checkbox. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input aria-describedby="nickelPaidError" class="form-check-input" id="nickelPaid" required="" type="checkbox"/>
+        I have placed five cents in the jar.
+       </label>
+       <p class="form-error" id="nickelPaidError">
+       </p>
+       <p class="form-error" id="adviceError" role="alert">
+       </p>
+       <button class="button dark btn btn-primary" type="submit">
+        Ask Lucy
+       </button>
+      </form>
+      <!-- LIVE FEEDBACK: announces changes without requiring the user to move focus. Keep updates brief and meaningful. -->
+      <aside aria-live="polite" class="advice-result" hidden="" id="adviceResult" tabindex="-1">
+       <p class="eyebrow">
+        Lucy’s advice
+       </p>
+       <blockquote id="adviceText">
+       </blockquote>
+       <p class="receipt">
+        Consultation complete · 5¢
+       </p>
+       <button class="text-button btn btn-outline-dark" id="askAgain" type="button">
+        Ask another question ↻
+       </button>
+      </aside>
+     </div>
+     <p class="booth-disclaimer">
+      For playful entertainment only. This is not mental-health or medical
+            advice.
+     </p>
+     <p class="home-return">
+      <a class="button secondary btn btn-outline-dark" href="index.html">
+       ← Back to home
+      </a>
+     </p>
+    </div>
+   </section>
+  </main>
+  <!-- Shared footer with project identity and navigation. Keep its content consistent across pages. -->
+  <footer>
+   <div class="shell footer-grid container d-flex flex-wrap justify-content-between gap-4">
+    <div>
+     <strong>
+      GOOD GRIEF!
+     </strong>
+     <p>
+      An unofficial educational fan project.
+     </p>
+    </div>
+    <p>
+     Peanuts and its characters are trademarks of their respective owners.
+          This site is not affiliated with or endorsed by Peanuts Worldwide.
+    </p>
+    <a href="#top">
+     Back to top ↑
+    </a>
+   </div>
+  </footer>
+ </body>
+</html>

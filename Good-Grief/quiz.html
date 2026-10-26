@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<!--
+ FILE: quiz.html
+ PURPOSE: Three-question personality quiz: validates each step and displays a character result.
+ STRUCTURE: Semantic HTML supplies content and navigation; bootstrap.min.css contains the vendor framework; styles.css contains original layouts and theme.
+ app.js supplies the shared libraries and feature initializers, which guard against missing page-specific elements.
+ Keep IDs referenced by JavaScript and aria-controls/aria-labelledby in sync when editing.
+ This file is static and can be hosted on GitHub Pages; no Python or server application is needed.
+-->
+<html lang="en">
+ <!-- Document metadata and shared assets. The deferred script runs after HTML parsing so feature controls exist before initialization. -->
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="Take the accessible Peanuts personality quiz." name="description"/>
+  <title>
+   Personality Quiz | Good Grief!
+  </title>
+  <link href="https://code.jquery.com" rel="preconnect"/>
+  <meta content="Good Grief!" name="application-name"/>
+  <!-- Third-party Bootstrap components; original styles load second. -->
+  <link href="bootstrap.min.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet"/>
+  <script defer="" src="app.js">
+  </script>
+ </head>
+ <body data-page="quiz">
+  <a class="skip-link" href="#main">
+   Skip to main content
+  </a>
+  <div aria-hidden="true" class="reading-progress" id="readingProgress">
+  </div>
+  <!-- Shared navigation is written into the HTML, so every destination remains available without JavaScript. Bootstrap progressively enhances the mobile collapse control. -->
+  <header class="site-header" id="top" tabindex="-1">
+   <div class="shell nav-shell container navbar navbar-expand-xl gap-3 py-3">
+    <a aria-label="Good Grief home" class="brand navbar-brand" href="index.html">
+     <span>
+      GOOD
+     </span>
+     <span>
+      GRIEF!
+     </span>
+     <small>
+      Peanuts fan field guide
+     </small>
+    </a>
+    <button aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#primaryNav" data-bs-toggle="collapse" id="menuButton" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <button aria-label="Switch to dark mode" aria-pressed="false" class="theme-toggle btn btn-outline-secondary ms-auto order-xl-last" id="themeToggle" type="button">
+     <span aria-hidden="true" class="theme-toggle-icon">
+      ☾
+     </span>
+     <span class="theme-toggle-text">
+      Dark
+     </span>
+    </button>
+    <nav aria-label="Main navigation" class="collapse navbar-collapse" id="primaryNav">
+     <div class="navbar-nav ms-auto gap-1">
+      <a class="nav-link" href="index.html">
+       Home
+      </a>
+      <a class="nav-link" href="characters.html">
+       Characters
+      </a>
+      <a class="nav-link" href="villains.html">
+       Rivals
+      </a>
+      <a aria-current="page" class="nav-link active" href="quiz.html">
+       Quiz
+      </a>
+      <a class="nav-link" href="books.html">
+       Library
+      </a>
+      <a class="nav-link" href="advice.html">
+       Advice
+      </a>
+      <a class="nav-link" href="references.html">
+       References
+      </a>
+     </div>
+    </nav>
+   </div>
+  </header>
+  <p class="connection-status shell container alert alert-warning my-3" hidden="" id="connectionStatus" role="status">
+  </p>
+  <noscript>
+   <p class="shell container">
+    Navigation works without JavaScript. Enable JavaScript for quizzes, filters and other interactive features.
+    <a href="index.html">
+     Return home
+    </a>
+    .
+   </p>
+  </noscript>
+  <!-- Main content landmark. The skip link targets this region to bypass repeated navigation. -->
+  <main class="page-main" id="main" tabindex="-1">
+   <div class="breadcrumbs-wrap">
+    <nav aria-label="Breadcrumb" class="shell breadcrumbs container">
+     <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">
+       <a href="index.html">
+        Home
+       </a>
+      </li>
+      <li aria-current="page" class="breadcrumb-item">
+       Personality Quiz
+      </li>
+     </ol>
+    </nav>
+   </div>
+   <!-- CONTENT SECTION: Who is on your wavelength?. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section class="page-hero">
+    <div class="shell container">
+     <p class="eyebrow">
+      Interactive quiz
+     </p>
+     <h1>
+      Who is on your wavelength?
+     </h1>
+     <p>
+      Choose one answer for each question. Your responses stay in this browser and the Back button remains hidden on the first question.
+     </p>
+    </div>
+   </section>
+   <!-- CONTENT SECTION: Find your match.. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section aria-labelledby="quizTitle" class="section shell quiz-section container">
+    <div class="quiz-card card card-body p-4 p-md-5">
+     <div class="quiz-copy">
+      <p class="eyebrow">
+       01 / Three questions
+      </p>
+      <h2 id="quizTitle">
+       Find your match.
+      </h2>
+      <p>
+       There are no wrong answers—only different ways of seeing the neighbourhood.
+      </p>
+      <div aria-hidden="true" class="quiz-progress progress mb-4">
+       <span class="progress-bar" id="quizProgress">
+       </span>
+      </div>
+     </div>
+     <!-- FORM quizForm: labels and grouped controls explain the expected input. JavaScript validates values before updating the page or issuing API requests; error IDs are linked with aria-describedby. -->
+     <form id="quizForm">
+      <fieldset class="quiz-step" data-step="0">
+       <legend>
+        Your perfect Saturday begins with…
+       </legend>
+       <label class="form-label">
+        <!-- CONTROL q1: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q1" type="radio" value="dreamer"/>
+        A wild idea
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q1: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q1" type="radio" value="loyal"/>
+        Calling a friend
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q1: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q1" type="radio" value="thinker"/>
+        A quiet plan
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q1: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q1" type="radio" value="bold"/>
+        Taking charge
+       </label>
+      </fieldset>
+      <fieldset class="quiz-step" data-step="1" hidden="">
+       <legend>
+        When a plan fails, you…
+       </legend>
+       <label class="form-label">
+        <!-- CONTROL q2: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q2" type="radio" value="loyal"/>
+        Help everyone regroup
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q2: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q2" type="radio" value="dreamer"/>
+        Imagine a better adventure
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q2: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q2" type="radio" value="bold"/>
+        Try again immediately
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q2: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q2" type="radio" value="thinker"/>
+        Work out what happened
+       </label>
+      </fieldset>
+      <fieldset class="quiz-step" data-step="2" hidden="">
+       <legend>
+        Friends value your…
+       </legend>
+       <label class="form-label">
+        <!-- CONTROL q3: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q3" type="radio" value="thinker"/>
+        Thoughtful advice
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q3: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q3" type="radio" value="bold"/>
+        Honest confidence
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q3: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q3" type="radio" value="loyal"/>
+        Steady support
+       </label>
+       <label class="form-label">
+        <!-- CONTROL q3: radio. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+        <input class="form-check-input" name="q3" type="radio" value="dreamer"/>
+        Original outlook
+       </label>
+      </fieldset>
+      <div class="quiz-controls d-flex flex-wrap gap-3 align-items-center">
+       <button class="button secondary btn btn-outline-dark" hidden="" id="quizBack" type="button">
+        Back
+       </button>
+       <button class="button btn btn-primary" disabled="" id="quizNext" type="button">
+        Next
+       </button>
+      </div>
+      <!-- LIVE FEEDBACK: announces changes without requiring the user to move focus. Keep updates brief and meaningful. -->
+      <p aria-live="polite" class="quiz-message" id="quizMessage" role="status">
+      </p>
+     </form>
+     <div class="quiz-result" hidden="" id="quizResult" tabindex="-1">
+      <p class="eyebrow">
+       Your result
+      </p>
+      <img alt="" class="quiz-result-image" decoding="async" height="480" id="resultImage" width="480"/>
+      <h3 id="resultTitle">
+      </h3>
+      <p id="resultText">
+      </p>
+      <button class="text-button btn btn-outline-dark" id="quizReset" type="button">
+       Take it again ↻
+      </button>
+     </div>
+    </div>
+   </section>
+  </main>
+  <!-- Shared footer with project identity and navigation. Keep its content consistent across pages. -->
+  <footer>
+   <div class="shell footer-grid container d-flex flex-wrap justify-content-between gap-4">
+    <div>
+     <strong>
+      GOOD GRIEF!
+     </strong>
+     <p>
+      An unofficial educational fan project.
+     </p>
+    </div>
+    <p>
+     Peanuts and its characters are trademarks of their respective owners.
+          This site is not affiliated with or endorsed by Peanuts Worldwide.
+    </p>
+    <a href="#top">
+     Back to top ↑
+    </a>
+   </div>
+  </footer>
+ </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--
+ FILE: characters.html
+ PURPOSE: Character directory: searchable profiles, personality filters and a saved favourite.
+ STRUCTURE: Semantic HTML supplies content and navigation; bootstrap.min.css contains the vendor framework; styles.css contains original layouts and theme.
+ app.js supplies the shared libraries and feature initializers, which guard against missing page-specific elements.
+ Keep IDs referenced by JavaScript and aria-controls/aria-labelledby in sync when editing.
+ This file is static and can be hosted on GitHub Pages; no Python or server application is needed.
+-->
+<html lang="en">
+ <!-- Document metadata and shared assets. The deferred script runs after HTML parsing so feature controls exist before initialization. -->
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="Search and explore the Peanuts characters." name="description"/>
+  <title>
+   Characters | Good Grief!
+  </title>
+  <link href="https://code.jquery.com" rel="preconnect"/>
+  <meta content="Good Grief!" name="application-name"/>
+  <!-- Third-party Bootstrap components; original styles load second. -->
+  <link href="bootstrap.min.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet"/>
+  <script defer="" src="app.js">
+  </script>
+ </head>
+ <body data-page="characters">
+  <a class="skip-link" href="#main">
+   Skip to main content
+  </a>
+  <div aria-hidden="true" class="reading-progress" id="readingProgress">
+  </div>
+  <!-- Shared navigation is written into the HTML, so every destination remains available without JavaScript. Bootstrap progressively enhances the mobile collapse control. -->
+  <header class="site-header" id="top" tabindex="-1">
+   <div class="shell nav-shell container navbar navbar-expand-xl gap-3 py-3">
+    <a aria-label="Good Grief home" class="brand navbar-brand" href="index.html">
+     <span>
+      GOOD
+     </span>
+     <span>
+      GRIEF!
+     </span>
+     <small>
+      Peanuts fan field guide
+     </small>
+    </a>
+    <button aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#primaryNav" data-bs-toggle="collapse" id="menuButton" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <button aria-label="Switch to dark mode" aria-pressed="false" class="theme-toggle btn btn-outline-secondary ms-auto order-xl-last" id="themeToggle" type="button">
+     <span aria-hidden="true" class="theme-toggle-icon">
+      ☾
+     </span>
+     <span class="theme-toggle-text">
+      Dark
+     </span>
+    </button>
+    <nav aria-label="Main navigation" class="collapse navbar-collapse" id="primaryNav">
+     <div class="navbar-nav ms-auto gap-1">
+      <a class="nav-link" href="index.html">
+       Home
+      </a>
+      <a aria-current="page" class="nav-link active" href="characters.html">
+       Characters
+      </a>
+      <a class="nav-link" href="villains.html">
+       Rivals
+      </a>
+      <a class="nav-link" href="quiz.html">
+       Quiz
+      </a>
+      <a class="nav-link" href="books.html">
+       Library
+      </a>
+      <a class="nav-link" href="advice.html">
+       Advice
+      </a>
+      <a class="nav-link" href="references.html">
+       References
+      </a>
+     </div>
+    </nav>
+   </div>
+  </header>
+  <p class="connection-status shell container alert alert-warning my-3" hidden="" id="connectionStatus" role="status">
+  </p>
+  <noscript>
+   <p class="shell container">
+    Navigation works without JavaScript. Enable JavaScript for quizzes, filters and other interactive features.
+    <a href="index.html">
+     Return home
+    </a>
+    .
+   </p>
+  </noscript>
+  <!-- Main content landmark. The skip link targets this region to bypass repeated navigation. -->
+  <main class="page-main" id="main" tabindex="-1">
+   <div class="breadcrumbs-wrap">
+    <nav aria-label="Breadcrumb" class="shell breadcrumbs container">
+     <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">
+       <a href="index.html">
+        Home
+       </a>
+      </li>
+      <li aria-current="page" class="breadcrumb-item">
+       Characters
+      </li>
+     </ol>
+    </nav>
+   </div>
+   <!-- CONTENT SECTION: Meet the neighbourhood.. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section class="page-hero">
+    <div class="shell container">
+     <p class="eyebrow">
+      Character directory
+     </p>
+     <h1>
+      Meet the neighbourhood.
+     </h1>
+     <p>
+      Search by name or personality, open an accessible profile and save your favourite character on this device.
+     </p>
+    </div>
+   </section>
+   <!-- CONTENT SECTION: Find a familiar face.. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section aria-labelledby="charactersTitle" class="section shell container">
+    <div class="section-heading align-items-start mb-4">
+     <p class="eyebrow">
+      01 / Directory
+     </p>
+     <div>
+      <h2 id="charactersTitle">
+       Find a familiar face.
+      </h2>
+      <p>
+       Use the controls below to narrow the complete character collection.
+      </p>
+     </div>
+    </div>
+    <div class="character-tools align-items-end">
+     <div class="field mb-3">
+      <label class="form-label" for="characterSearch">
+       Search characters
+      </label>
+      <!-- CONTROL characterSearch: search. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+      <input autocomplete="off" class="form-control" id="characterSearch" placeholder="Try Rerun or Shermy" type="search"/>
+     </div>
+     <div class="field mb-3">
+      <label class="form-label" for="traitFilter">
+       Personality
+      </label>
+      <!-- CONTROL traitFilter: select. Preserve its name/ID and label association; validation attributes constrain input where appropriate. -->
+      <select class="form-select" id="traitFilter">
+       <option value="all">
+        All personalities
+       </option>
+       <option value="dreamer">
+        Dreamers
+       </option>
+       <option value="thinker">
+        Thinkers
+       </option>
+       <option value="bold">
+        Bold voices
+       </option>
+       <option value="loyal">
+        Loyal friends
+       </option>
+      </select>
+     </div>
+    </div>
+    <!-- LIVE FEEDBACK: announces changes without requiring the user to move focus. Keep updates brief and meaningful. -->
+    <p aria-live="polite" class="status" id="characterStatus" role="status">
+     Showing 12 characters
+    </p>
+    <div class="character-grid content-grid" id="characterGrid">
+    </div>
+    <p class="empty-state" hidden="" id="emptyState">
+     No characters match that search. Try another word.
+    </p>
+   </section>
+  </main>
+  <!-- Shared footer with project identity and navigation. Keep its content consistent across pages. -->
+  <footer>
+   <div class="shell footer-grid container d-flex flex-wrap justify-content-between gap-4">
+    <div>
+     <strong>
+      GOOD GRIEF!
+     </strong>
+     <p>
+      An unofficial educational fan project.
+     </p>
+    </div>
+    <p>
+     Peanuts and its characters are trademarks of their respective owners.
+          This site is not affiliated with or endorsed by Peanuts Worldwide.
+    </p>
+    <a href="#top">
+     Back to top ↑
+    </a>
+   </div>
+  </footer>
+  <!-- NATIVE DIALOG: showModal() supplies modal behaviour. Shared handlers close the dialog and return focus to the opener; aria-labelledby names it for assistive technology. -->
+  <dialog aria-labelledby="dialogTitle" id="characterDialog">
+   <button aria-label="Close character profile" class="dialog-close btn btn-primary" id="dialogClose" type="button">
+    ×
+   </button>
+   <p class="eyebrow">
+    Character file
+   </p>
+   <h2 id="dialogTitle">
+   </h2>
+   <p id="dialogText">
+   </p>
+   <button aria-pressed="false" class="favourite-button btn btn-primary" id="favouriteButton" type="button">
+    ☆ Save as favourite
+   </button>
+  </dialog>
+ </body>
+</html>

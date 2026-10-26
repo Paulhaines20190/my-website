@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<!--
+ FILE: villains.html
+ PURPOSE: Rivals and bullies: keyboard-accessible category tabs and expandable case notes.
+ STRUCTURE: Semantic HTML supplies content and navigation; bootstrap.min.css contains the vendor framework; styles.css contains original layouts and theme.
+ app.js supplies the shared libraries and feature initializers, which guard against missing page-specific elements.
+ Keep IDs referenced by JavaScript and aria-controls/aria-labelledby in sync when editing.
+ This file is static and can be hosted on GitHub Pages; no Python or server application is needed.
+-->
+<html lang="en">
+ <!-- Document metadata and shared assets. The deferred script runs after HTML parsing so feature controls exist before initialization. -->
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="Case files for the recurring rivals and bullies of Peanuts." name="description"/>
+  <title>
+   Rivals &amp; Bullies | Good Grief!
+  </title>
+  <link href="https://code.jquery.com" rel="preconnect"/>
+  <meta content="Good Grief!" name="application-name"/>
+  <!-- Third-party Bootstrap components; original styles load second. -->
+  <link href="bootstrap.min.css" rel="stylesheet"/>
+  <link href="styles.css" rel="stylesheet"/>
+  <script defer="" src="app.js">
+  </script>
+ </head>
+ <body data-page="villains">
+  <a class="skip-link" href="#main">
+   Skip to main content
+  </a>
+  <div aria-hidden="true" class="reading-progress" id="readingProgress">
+  </div>
+  <!-- Shared navigation is written into the HTML, so every destination remains available without JavaScript. Bootstrap progressively enhances the mobile collapse control. -->
+  <header class="site-header" id="top" tabindex="-1">
+   <div class="shell nav-shell container navbar navbar-expand-xl gap-3 py-3">
+    <a aria-label="Good Grief home" class="brand navbar-brand" href="index.html">
+     <span>
+      GOOD
+     </span>
+     <span>
+      GRIEF!
+     </span>
+     <small>
+      Peanuts fan field guide
+     </small>
+    </a>
+    <button aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#primaryNav" data-bs-toggle="collapse" id="menuButton" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <button aria-label="Switch to dark mode" aria-pressed="false" class="theme-toggle btn btn-outline-secondary ms-auto order-xl-last" id="themeToggle" type="button">
+     <span aria-hidden="true" class="theme-toggle-icon">
+      ☾
+     </span>
+     <span class="theme-toggle-text">
+      Dark
+     </span>
+    </button>
+    <nav aria-label="Main navigation" class="collapse navbar-collapse" id="primaryNav">
+     <div class="navbar-nav ms-auto gap-1">
+      <a class="nav-link" href="index.html">
+       Home
+      </a>
+      <a class="nav-link" href="characters.html">
+       Characters
+      </a>
+      <a aria-current="page" class="nav-link active" href="villains.html">
+       Rivals
+      </a>
+      <a class="nav-link" href="quiz.html">
+       Quiz
+      </a>
+      <a class="nav-link" href="books.html">
+       Library
+      </a>
+      <a class="nav-link" href="advice.html">
+       Advice
+      </a>
+      <a class="nav-link" href="references.html">
+       References
+      </a>
+     </div>
+    </nav>
+   </div>
+  </header>
+  <p class="connection-status shell container alert alert-warning my-3" hidden="" id="connectionStatus" role="status">
+  </p>
+  <noscript>
+   <p class="shell container">
+    Navigation works without JavaScript. Enable JavaScript for quizzes, filters and other interactive features.
+    <a href="index.html">
+     Return home
+    </a>
+    .
+   </p>
+  </noscript>
+  <!-- Main content landmark. The skip link targets this region to bypass repeated navigation. -->
+  <main class="page-main" id="main" tabindex="-1">
+   <div class="breadcrumbs-wrap">
+    <nav aria-label="Breadcrumb" class="shell breadcrumbs container">
+     <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item">
+       <a href="index.html">
+        Home
+       </a>
+      </li>
+      <li aria-current="page" class="breadcrumb-item">
+       Rivals &amp; Bullies
+      </li>
+     </ol>
+    </nav>
+   </div>
+   <!-- CONTENT SECTION: Rivals, tricks and troublemakers.. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section class="page-hero">
+    <div class="shell container">
+     <p class="eyebrow">
+      Neighbourhood case files
+     </p>
+     <h1>
+      Rivals, tricks and troublemakers.
+     </h1>
+     <p>
+      Peanuts rarely needs a traditional villain. Switch between recurring rivals and the characters whose behaviour crosses into bullying.
+     </p>
+    </div>
+   </section>
+   <!-- CONTENT SECTION: Rivals & bullies.. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+   <section aria-labelledby="rivalsTitle" class="section villains-section">
+    <div class="shell container">
+     <div class="section-heading align-items-start mb-4">
+      <p class="eyebrow">
+       01 / Case files
+      </p>
+      <div>
+       <h2 id="rivalsTitle">
+        Rivals &amp; bullies.
+       </h2>
+       <p>
+        Choose a group, then open any case file to discover why the character or obstacle matters.
+       </p>
+      </div>
+     </div>
+     <div aria-label="Choose case-file group" class="case-toggle nav nav-pills gap-2 mb-4" role="tablist">
+      <button aria-controls="rivalsPanel" aria-selected="true" class="case-toggle-button is-active btn btn-primary nav-link" id="rivalsTab" role="tab" type="button">
+       Rivals
+      </button>
+      <button aria-controls="bulliesPanel" aria-selected="false" class="case-toggle-button btn btn-primary nav-link" id="bulliesTab" role="tab" tabindex="-1" type="button">
+       Bullies
+      </button>
+     </div>
+     <!-- LIVE FEEDBACK: announces changes without requiring the user to move focus. Keep updates brief and meaningful. -->
+     <p aria-live="polite" class="visually-hidden" id="caseGroupStatus" role="status">
+     </p>
+     <!-- CONTENT SECTION: Recurring rivals. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+     <section aria-labelledby="rivalsTab" class="case-panel" id="rivalsPanel" role="tabpanel">
+      <h3 class="case-panel-title">
+       Recurring rivals
+      </h3>
+      <div class="villain-grid content-grid">
+       <div class="grid-item">
+        <article class="villain-card featured-villain card h-100 card-body">
+         <span class="villain-number">
+          ARCH-RIVAL 01
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          🌳
+         </span>
+         <h3>
+          The Kite-Eating Tree
+         </h3>
+         <p>
+          Charlie Brown’s most persistent natural enemy has an appetite for kites and perfect timing.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Known weakness:
+           </strong>
+           None confirmed. Best approached without a kite.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           The tree turns repeated frustration into a funny symbol of persistence.
+          </p>
+         </details>
+        </article>
+       </div>
+       <div class="grid-item">
+        <article class="villain-card card h-100 card-body">
+         <span class="villain-number">
+          RIVAL 02
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          ✈️
+         </span>
+         <h3>
+          The Red Baron
+         </h3>
+         <p>
+          Snoopy’s ultimate imaginary archenemy waits beyond the doghouse whenever the World War I Flying Ace takes flight.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Battlefield:
+           </strong>
+           The skies of Snoopy’s imagination.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           This unseen rival transforms an ordinary doghouse into an epic aerial adventure.
+          </p>
+         </details>
+        </article>
+       </div>
+       <div class="grid-item">
+        <article class="villain-card card h-100 card-body">
+         <span class="villain-number">
+          ANTAGONIST 03
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          🏈
+         </span>
+         <h3>
+          Lucy and the Football Trick
+         </h3>
+         <p>
+          Lucy is a friend rather than a conventional villain, but she becomes Charlie Brown’s recurring antagonist whenever she pulls the football away.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Warning sign:
+           </strong>
+           Absolute confidence that this time will be different.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           The running joke balances trust, optimism and inevitable disappointment.
+          </p>
+         </details>
+        </article>
+       </div>
+       <div class="grid-item">
+        <article class="villain-card card h-100 card-body">
+         <span class="villain-number">
+          MENACE 04
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          🐾
+         </span>
+         <h3>
+          World War II Cat / The Neighbor’s Cat
+         </h3>
+         <p>
+          The unseen neighborhood cat wages destructive turf wars with Snoopy and Woodstock while remaining just out of view.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Threat level:
+           </strong>
+           Best judged from a safe distance—preferably away from the doghouse.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           Keeping the cat unseen makes the menace seem larger, fiercer and funnier.
+          </p>
+         </details>
+        </article>
+       </div>
+      </div>
+     </section>
+     <!-- CONTENT SECTION: Known bullies. Original CSS Grid rules control content layout; semantic headings provide the document outline. -->
+     <section aria-labelledby="bulliesTab" class="case-panel" id="bulliesPanel" role="tabpanel">
+      <h3 class="case-panel-title">
+       Known bullies
+      </h3>
+      <div class="villain-grid bully-grid content-grid">
+       <div class="grid-item">
+        <article class="villain-card featured-villain card h-100 card-body">
+         <span class="villain-number">
+          BULLY 01
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          🎯
+         </span>
+         <h3>
+          Joe Agate
+         </h3>
+         <p>
+          An expert marble player who takes advantage of Rerun until Charlie Brown challenges him and wins the marbles back.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Method:
+           </strong>
+           Uses his experience and confidence to intimidate a younger player.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           Joe gives Charlie Brown a rare opportunity to stand up to a bully and succeed.
+          </p>
+         </details>
+        </article>
+       </div>
+       <div class="grid-item">
+        <article class="villain-card card h-100 card-body">
+         <span class="villain-number">
+          BULLY 02
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          ⚾
+         </span>
+         <h3>
+          Thibault
+         </h3>
+         <p>
+          A short-tempered and argumentative member of Peppermint Patty’s baseball team who directs hostile behaviour at others.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Known for:
+           </strong>
+           Picking fights and making chauvinistic comments toward Marcie.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           Thibault shows how aggression can disrupt a team and test its friendships.
+          </p>
+         </details>
+        </article>
+       </div>
+       <div class="grid-item">
+        <article class="villain-card card h-100 card-body">
+         <span class="villain-number">
+          FILM BULLIES 03
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          🛶
+         </span>
+         <h3>
+          The Camp Bullies
+         </h3>
+         <p>
+          A domineering trio determined to defeat Charlie Brown and his friends throughout the camp competitions and river race.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Tactics:
+           </strong>
+           Cheating, intimidation and sending Brutus after Snoopy and Woodstock.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           The trio creates a direct team-versus-team conflict in
+           <cite>
+            Race for Your Life, Charlie Brown
+           </cite>
+           .
+          </p>
+         </details>
+        </article>
+       </div>
+       <div class="grid-item">
+        <article class="villain-card card h-100 card-body">
+         <span class="villain-number">
+          COURT RIVAL 04
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          🎾
+         </span>
+         <h3>
+          Molly Volley
+         </h3>
+         <p>
+          A fiercely competitive tennis player whose aggressive court manner overwhelms Schroeder and challenges Snoopy.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Tactics:
+           </strong>
+           Loud intimidation, relentless competitiveness and a win-at-all-costs attitude.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           Molly turns a friendly doubles match into a comic test of patience and teamwork.
+          </p>
+         </details>
+        </article>
+       </div>
+       <div class="grid-item">
+        <article class="villain-card card h-100 card-body">
+         <span class="villain-number">
+          UNFRIENDLY PEERS 05
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          💬
+         </span>
+         <h3>
+          Violet Gray &amp; Patty
+         </h3>
+         <p>
+          Early neighborhood peers who often patronize, exclude or behave snobbishly toward Charlie Brown.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Tactics:
+           </strong>
+           Teasing, social exclusion and dismissive comments.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           Their behaviour represents the everyday peer pressure and rejection Charlie Brown repeatedly faces.
+          </p>
+         </details>
+        </article>
+       </div>
+       <div class="grid-item">
+        <article class="villain-card film-villain card h-100 card-body">
+         <span class="villain-number">
+          ACCOMPLICE 06
+         </span>
+         <span aria-hidden="true" class="villain-icon">
+          🐈
+         </span>
+         <h3>
+          Brutus
+         </h3>
+         <p>
+          The camp bullies’ aggressive pet bobcat, used to terrorize Snoopy and Woodstock during the wilderness adventure.
+         </p>
+         <details>
+          <summary>
+           Open case file
+          </summary>
+          <p>
+           <strong>
+            Territory:
+           </strong>
+           The camp and its dangerous river race.
+          </p>
+          <p>
+           <strong>
+            Why it matters:
+           </strong>
+           Brutus turns the bullies’ threats into a direct physical danger.
+          </p>
+         </details>
+        </article>
+       </div>
+      </div>
+     </section>
+    </div>
+   </section>
+  </main>
+  <!-- Shared footer with project identity and navigation. Keep its content consistent across pages. -->
+  <footer>
+   <div class="shell footer-grid container d-flex flex-wrap justify-content-between gap-4">
+    <div>
+     <strong>
+      GOOD GRIEF!
+     </strong>
+     <p>
+      An unofficial educational fan project.
+     </p>
+    </div>
+    <p>
+     Peanuts and its characters are trademarks of their respective owners.
+          This site is not affiliated with or endorsed by Peanuts Worldwide.
+    </p>
+    <a href="#top">
+     Back to top ↑
+    </a>
+   </div>
+  </footer>
+ </body>
+</html>
